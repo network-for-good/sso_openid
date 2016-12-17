@@ -16,7 +16,6 @@ module NfgOpenid
         name: 'nfg-openid',
         discovery: true,
         issuer: APP_CONFIG[:nfg_openid][:discovery_endpoint],
-        state: Proc.new { SecureRandom.hex(32) }
       }
     end
   end
