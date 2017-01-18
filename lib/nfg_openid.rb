@@ -5,13 +5,6 @@ require "omniauth/openid_connect"
 module NfgOpenid
   class Configuration
     class << self
-      def setup_proc
-        lambda do |env|
-          req = Rack::Request.new(env)
-          env['omniauth.strategy'].options[:redirect_uri] = "#{req.url}/callback"
-        end
-      end
-
       def auth_path
         "/admin/auth"
       end
