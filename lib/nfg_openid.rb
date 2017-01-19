@@ -41,6 +41,7 @@ module NfgOpenid
           discovery: true,
           issuer: APP_CONFIG[:nfg_openid][:discovery_endpoint],
           setup: true,
+          scope: [:openid, :email, :profile, :address],
         }
       end
     end
