@@ -1,8 +1,8 @@
-require "nfg_openid/engine"
-require "nfg_openid/middleware"
+require "sso_openid/engine"
+require "sso_openid/middleware"
 require "omniauth/openid_connect"
 
-module NfgOpenid
+module SsoOpenid
   class Configuration
     class << self
       def auth_path
@@ -10,7 +10,7 @@ module NfgOpenid
       end
 
       def provider_name
-        "nfg-openid"
+        "sso-openid"
       end
 
       def auth_path_with_provider
@@ -30,16 +30,16 @@ module NfgOpenid
           client_options: {
             port: 443,
             scheme: "https",
-            host: APP_CONFIG[:nfg_openid][:host],
-            identifier: APP_CONFIG[:nfg_openid][:client_id],
-            secret: APP_CONFIG[:nfg_openid][:client_secret],
+            host: APP_CONFIG[:sso_openid][:host],
+            identifier: APP_CONFIG[:sso_openid][:client_id],
+            secret: APP_CONFIG[:sso_openid][:client_secret],
           },
           callback_path: self.callback_path,
           request_path: self.auth_path_with_provider,
           setup_path: self.setup_path,
           name: self.provider_name,
           discovery: true,
-          issuer: APP_CONFIG[:nfg_openid][:discovery_endpoint],
+          issuer: APP_CONFIG[:sso_openid][:discovery_endpoint],
           setup: true,
           scope: [:openid, :email, :profile, :address],
         }

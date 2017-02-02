@@ -1,12 +1,12 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "nfg_openid/version"
+require "sso_openid/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "nfg_openid"
-  s.version     = NfgOpenid::VERSION
+  s.name        = "sso_openid"
+  s.version     = SsoOpenid::VERSION
   s.authors     = ["Timothy King"]
   s.email       = ["timothy.king@networkforgood.com"]
   s.homepage    = "http://github.com/NetworkForGood"

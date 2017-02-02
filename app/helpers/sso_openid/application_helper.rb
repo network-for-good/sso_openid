@@ -1,4 +1,4 @@
-module NfgOpenid
+module SsoOpenid
   module ApplicationHelper
   end
 end

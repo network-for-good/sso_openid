@@ -1,4 +1,4 @@
-class NfgOpenid::AuthenticationsController < ApplicationController
+class SsoOpenid::AuthenticationsController < ApplicationController
   def create
     omniauth_data = env['omniauth.auth']
     admin = Admin.from_omniauth(omniauth_data, request.subdomain)

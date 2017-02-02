@@ -1,4 +1,4 @@
-module NfgOpenid
+module SsoOpenid
   class Middleware
     attr_accessor :app
 
@@ -9,8 +9,8 @@ module NfgOpenid
     def call(env)
       request = Rack::Request.new(env)
 
-      if request.path =~ %r{#{NfgOpenid::Configuration.auth_path}/?}
-        omniauth_strategy = OmniAuth::Strategies::OpenIDConnect.new(app, NfgOpenid::Configuration.openid_options)
+      if request.path =~ %r{#{SsoOpenid::Configuration.auth_path}/?}
+        omniauth_strategy = OmniAuth::Strategies::OpenIDConnect.new(app, SsoOpenid::Configuration.openid_options)
         status, headers, response = omniauth_strategy.call(env)
         return [status, headers, response]
       else
