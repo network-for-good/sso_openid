@@ -1,18 +1,20 @@
 module SsoOpenid
-  class AuthenticationsController < ApplicationController
+  class AuthenticationsController < ::ApplicationController
+
     def create
       omniauth_data = env['omniauth.auth']
       admin = Admin.from_omniauth(omniauth_data, request.subdomain)
       if admin
-        sign_in(admin)
-        redirect_to(admin_dashboard_path) and return
+        admin.oauth_token = omniauth_data.credentials.token
+        admin.oauth_expires_at = DateTime.now + omniauth_data.credentials.expires_in.seconds
+        sso_openid_sign_in_and_redirect(admin, omniauth_data)
       else
-        redirect_to(admin_access_not_allowed_path) and return
+        failure
       end
     end
 
     def failure
-      raise 'failure'
+      redirect_to sso_openid_failure_path
     end
 
     def setup
@@ -24,10 +26,6 @@ module SsoOpenid
 
     def current_donor
       nil
-    end
-
-    def state
-      @state ||= SecureRandom.hex(32)
     end
   end
 end
