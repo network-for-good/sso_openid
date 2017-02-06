@@ -1,0 +1,6 @@
+defaults:
+  sso_openid:
+    host: 'identity-qa.networkforgood.org'
+    discovery_endpoint: 'https://identity-qa.networkforgood.org'
+    client_id: 'N4GW3BEv0'
+    client_secret: '&=qeRutuspe4a*uruth&'
