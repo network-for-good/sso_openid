@@ -43,17 +43,6 @@ describe SsoOpenid::Middleware, type: :request do
           expires_in: 1800,
           scope: nil,
         }),
-        info: OmniAuth::AuthHash.new({
-          name: nil,
-          email: admin_email,
-          nickname: nil,
-          first_name: "John",
-          last_name: "Doe",
-          gender: nil,
-          image: nil,
-          phone: nil,
-          urls: nil
-        }),
         extra: OmniAuth::AuthHash.new({
           email: admin_email,
           email_verified: "true",
@@ -96,8 +85,13 @@ describe SsoOpenid::Middleware, type: :request do
       end
 
       it "signs in the admin" do
-        expect_any_instance_of(SsoOpenid::AuthenticationsController).to receive(:sso_openid_sign_in_and_redirect).with(admin, omniauth_auth)
+        expect_any_instance_of(SsoOpenid::SessionsController).to receive(:sign_in).with(admin)
         get callback_path_with_args
+      end
+
+      it "redirects the user" do
+        get callback_path_with_args
+        expect(response).to redirect_to(root_path)
       end
     end
 

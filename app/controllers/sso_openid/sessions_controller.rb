@@ -1,5 +1,5 @@
 module SsoOpenid
-  class AuthenticationsController < ::ApplicationController
+  class SessionsController < ::ApplicationController
 
     def create
       omniauth_data = env['omniauth.auth']
@@ -8,10 +8,18 @@ module SsoOpenid
         admin.uid = omniauth_data.uid
         admin.oauth_token = omniauth_data.credentials.token
         admin.oauth_expires_at = DateTime.now + omniauth_data.credentials.expires_in.seconds
-        sso_openid_sign_in_and_redirect(admin, omniauth_data)
+        admin.save
+        sign_in(admin)
+
+        redirect_to sso_openid_redirect_after_sign_in_path
       else
         failure
       end
+    end
+
+    def destroy
+      sign_out
+      redirect_to root_path
     end
 
     def failure
