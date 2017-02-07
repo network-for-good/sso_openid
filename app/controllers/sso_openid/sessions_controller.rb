@@ -7,9 +7,9 @@ module SsoOpenid
       if admin
         admin.uid = omniauth_data.uid
         admin.oauth_token = omniauth_data.credentials.token
-        admin.oauth_expires_at = DateTime.now + omniauth_data.credentials.expires_in.seconds
+        admin.oauth_expires_at = token_expiration_date(omniauth_data)
         admin.save
-        sign_in(admin)
+        sso_openid_sign_in(admin)
 
         redirect_to sso_openid_redirect_after_sign_in_path
       else
@@ -18,7 +18,7 @@ module SsoOpenid
     end
 
     def destroy
-      sign_out
+      sso_openid_sign_out
       redirect_to root_path
     end
 
@@ -35,6 +35,10 @@ module SsoOpenid
 
     def current_donor
       nil
+    end
+
+    def token_expiration_date(omniauth_data)
+      DateTime.now + omniauth_data.credentials.expires_in.seconds
     end
   end
 end

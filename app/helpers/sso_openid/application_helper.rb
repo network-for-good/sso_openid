@@ -1,14 +1,15 @@
 module SsoOpenid
   module ApplicationHelper
-    def sign_in(admin)
+    def sso_openid_sign_in(admin, *args)
       if params[:session] && params[:session][:remember_me] == '1'
         cookies.permanent[:admin_uid] = admin.uid
       else
         cookies[:admin_uid] = admin.uid
       end
+      ahoy.authenticate(admin) if defined?(ahoy)
     end
 
-    def sign_out
+    def sso_openid_sign_out
       cookies.delete(:admin_uid)
       reset_session
     end

@@ -85,13 +85,18 @@ describe SsoOpenid::Middleware, type: :request do
       end
 
       it "signs in the admin" do
-        expect_any_instance_of(SsoOpenid::SessionsController).to receive(:sign_in).with(admin)
+        expect_any_instance_of(SsoOpenid::SessionsController).to receive(:sso_openid_sign_in).with(admin)
         get callback_path_with_args
       end
 
       it "redirects the user" do
         get callback_path_with_args
         expect(response).to redirect_to(root_path)
+      end
+
+      it "creates a cookie" do
+        get callback_path_with_args
+        expect(cookies[:admin_uid]).to eql(omniauth_auth.credentials.uid)
       end
     end
 
