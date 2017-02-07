@@ -90,6 +90,11 @@ describe SsoOpenid::Middleware, type: :request do
         get callback_path_with_args
       end
 
+      it "sets the uid" do
+        expect(admin).to receive(:uid=)
+        get callback_path_with_args
+      end
+
       it "signs in the admin" do
         expect_any_instance_of(SsoOpenid::AuthenticationsController).to receive(:sso_openid_sign_in_and_redirect).with(admin, omniauth_auth)
         get callback_path_with_args
