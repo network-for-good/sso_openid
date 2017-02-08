@@ -26,7 +26,7 @@ module SsoOpenid
         return true
       else
         session[:stored_location] = request.path
-        redirect_to SsoOpenid::Configuration.auth_path_with_provider
+        redirect_to sso_openid_auth_path
       end
     end
 

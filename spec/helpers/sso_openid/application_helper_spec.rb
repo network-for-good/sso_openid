@@ -87,7 +87,7 @@ describe SsoOpenid::ApplicationHelper do
       end
 
       it "redirects to the provider path" do
-        expect(self).to receive(:redirect_to).with(SsoOpenid::Configuration.auth_path_with_provider)
+        expect(self).to receive(:redirect_to).with(sso_openid_auth_path)
         subject
       end
     end

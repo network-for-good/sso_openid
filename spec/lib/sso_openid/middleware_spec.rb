@@ -17,7 +17,7 @@ describe SsoOpenid::Middleware, type: :request do
     let(:scope) { SsoOpenid::Configuration.openid_options[:scope] }
     let(:client_id) { SsoOpenid::Configuration.openid_options[:client_options][:client_id] }
 
-    before { get SsoOpenid::Configuration.auth_path_with_provider }
+    before { get sso_openid_auth_path }
 
     subject { response.location }
 
@@ -55,7 +55,7 @@ describe SsoOpenid::Middleware, type: :request do
       })
     end
     let(:admin) { Admin.new }
-    let(:provider) { SsoOpenid::Configuration.provider_name }
+    let(:provider) { sso_openid_provider_name }
 
     before do
       OmniAuth.config.test_mode = true
