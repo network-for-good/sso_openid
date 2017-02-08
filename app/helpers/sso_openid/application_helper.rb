@@ -1,7 +1,7 @@
 module SsoOpenid
   module ApplicationHelper
-    def sso_openid_sign_in(admin, *args)
-      if params && params[:session] && params[:session][:remember_me] == '1'
+    def sso_openid_sign_in(admin, args = {})
+      if args[:remember_me].present?
         cookies.permanent[:admin_uid] = admin.uid
       else
         cookies[:admin_uid] = admin.uid
