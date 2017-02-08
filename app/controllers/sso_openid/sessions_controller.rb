@@ -3,14 +3,14 @@ module SsoOpenid
 
     def create
       omniauth_data = env['omniauth.auth']
-      admin = Admin.from_omniauth(omniauth_data, request.subdomain)
+      admin = Admin.from_omniauth(omniauth_data, request.subdomain, request.ip)
       if admin
         admin.uid = omniauth_data.uid
         admin.oauth_token = omniauth_data.credentials.token
         admin.oauth_expires_at = token_expiration_date(omniauth_data)
         admin.save
         sso_openid_sign_in(admin)
-
+        flash[:notice] = "Signed in successfully"
         redirect_to sso_openid_redirect_after_sign_in_path
       else
         failure

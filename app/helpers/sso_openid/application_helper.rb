@@ -1,22 +1,24 @@
 module SsoOpenid
   module ApplicationHelper
-    def sso_openid_sign_in(admin, args = {})
-      if args[:remember_me].present?
-        cookies.permanent[:admin_uid] = admin.uid
-      else
-        cookies[:admin_uid] = admin.uid
+    def sso_openid_sign_in(admin, options = {})
+      store_in_session = options.key?(:store) ? options[:store] : true
+      if store_in_session
+        session[:admin_uid] = admin.uid
+        session[:admin_id] = admin.id
       end
-      ahoy.authenticate(admin) if defined?(ahoy)
+      @current_admin = admin
     end
 
     def sso_openid_sign_out
-      cookies.delete(:admin_uid)
+      session.delete(:admin_uid)
+      session.delete(:admin_id)
       reset_session
     end
 
     def current_admin
-      return nil if cookies[:admin_uid].nil?
-      @current_admin ||= Admin.find_by(uid: cookies[:admin_uid])
+      return @current_admin if @current_admin
+      return nil if session[:admin_uid].nil?
+      @current_admin = Admin.find_by(uid: session[:admin_uid], id: session[:admin_id])
     end
 
     def authenticate_admin!

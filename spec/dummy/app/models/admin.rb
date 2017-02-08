@@ -4,4 +4,12 @@ class Admin
   def save
     true
   end
+
+  def uid
+    'abc-123'
+  end
+
+  def id
+    1
+  end
 end
