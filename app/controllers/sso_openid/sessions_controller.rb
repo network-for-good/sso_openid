@@ -27,7 +27,7 @@ module SsoOpenid
     end
 
     def setup
-      request.env['omniauth.strategy'].options[:client_options][:redirect_uri] = callback_url('sso-openid', subdomain: request.subdomain)
+      request.env['omniauth.strategy'].options[:client_options][:redirect_uri] = sso_openid_callback_url('sso-openid', subdomain: request.subdomain)
       render :text => "Omniauth setup phase.", :status => 200
     end
 

@@ -10,10 +10,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
   config.infer_spec_type_from_file_location!
-  config.include SsoOpenid::PathHelpers
   config.order = "random"
-
- #config.include SeleniumHelper, :type => :feature
 
  config.before(:suite) do
    DatabaseCleaner.strategy = :truncation
@@ -27,7 +24,3 @@ RSpec.configure do |config|
    DatabaseCleaner.clean
  end
 end
-
-#Capybara.register_driver :selenium do |app|
-  #Capybara::Selenium::Driver.new(app, :browser => :chrome)
-#end

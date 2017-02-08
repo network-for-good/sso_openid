@@ -9,7 +9,7 @@ module SsoOpenid
     def call(env)
       request = Rack::Request.new(env)
 
-      sso_openid_auth_path_prefix = '/admin/auth'
+      sso_openid_auth_path_prefix = SsoOpenid::Paths.auth_path_prefix
       if request.path =~ %r{#{sso_openid_auth_path_prefix}/?}
         omniauth_strategy = OmniAuth::Strategies::OpenIDConnect.new(app, SsoOpenid::Configuration.openid_options)
         status, headers, response = omniauth_strategy.call(env)
