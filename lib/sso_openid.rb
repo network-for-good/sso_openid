@@ -37,7 +37,7 @@ module SsoOpenid
           callback_path: self.callback_path,
           request_path: self.auth_path_with_provider,
           setup_path: self.setup_path,
-          name: self.provider_name,
+          name: :sso_openid,
           discovery: true,
           issuer: APP_CONFIG[:sso_openid][:discovery_endpoint],
           setup: true,

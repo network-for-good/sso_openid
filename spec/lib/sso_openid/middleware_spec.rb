@@ -36,14 +36,14 @@ describe SsoOpenid::Middleware, type: :request do
       OmniAuth::AuthHash.new({
         provider: provider,
         uid: '379bbf97-d3d9-4206-97a8-c24421b6f4fa',
-        credentials: OmniAuth::AuthHash.new({
+        credentials: {
           id_token: 'asdf1234',
           token: 'qwer5678',
           refresh_token: nil,
           expires_in: 1800,
           scope: nil,
-        }),
-        extra: OmniAuth::AuthHash.new({
+        },
+        extra: {
           email: admin_email,
           email_verified: "true",
           family_name: "John",
@@ -51,7 +51,7 @@ describe SsoOpenid::Middleware, type: :request do
           preferred_username: admin_email,
           sub: "379bbf97-d3d9-4206-97a8-c24421b6f4fa" ,
           updated_at: 1462568750
-        })
+        }
       })
     end
     let(:admin) { Admin.new }
@@ -59,7 +59,7 @@ describe SsoOpenid::Middleware, type: :request do
 
     before do
       OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[provider.to_sym] = omniauth_auth
+      OmniAuth.config.mock_auth[:sso_openid] = omniauth_auth
     end
     after { OmniAuth.config.test_mode = false }
 
