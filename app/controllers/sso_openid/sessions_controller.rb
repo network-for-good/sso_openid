@@ -10,6 +10,9 @@ module SsoOpenid
         if admin.try(:restrict_access?)
           flash[:error] = "You don't have permission to access this site"
           failure
+        elsif admin.respond_to?(:status) && admin.status != 'active'
+          flash[:error] = "You cannot access this site. Your account has been disabled."
+          failure
         else
           admin.uid = omniauth_data.uid
           admin.oauth_token = omniauth_data.credentials.token
