@@ -7,7 +7,7 @@ module SsoOpenid
       if admin.nil?
         failure
       else
-        if admin.try(:restrict_access?)
+        if admin.respond_to?(:restrict_access?) && admin.restrict_access?
           flash[:error] = "You don't have permission to access this site"
           failure
         elsif admin.respond_to?(:status) && admin.status != 'active'
