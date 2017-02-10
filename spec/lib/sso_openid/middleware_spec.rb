@@ -69,21 +69,6 @@ describe SsoOpenid::Middleware, type: :request do
         allow(Admin).to receive(:from_omniauth) { admin }
       end
 
-      it "sets the oauth token" do
-        expect(admin).to receive(:oauth_token=).with(omniauth_auth.credentials.token)
-        get callback_path_with_args
-      end
-
-      it "sets the oauth expiration" do
-        expect(admin).to receive(:oauth_expires_at=)
-        get callback_path_with_args
-      end
-
-      it "sets the uid" do
-        expect(admin).to receive(:uid=)
-        get callback_path_with_args
-      end
-
       it "signs in the admin" do
         expect_any_instance_of(SsoOpenid::SessionsController).to receive(:sso_openid_sign_in).with(admin)
         get callback_path_with_args

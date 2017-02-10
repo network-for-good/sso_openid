@@ -7,7 +7,7 @@ This gem provides a wrapper around omniauth and omniauth-openid-connect for hand
 2. `bundle`
 
 ## Modifications to the Admin model
-1. Add a `self.from_omniauth(uid, subdomain)` method to to handle user lookup and/or creation.
+1. Add a `self.from_omniauth(omniauth_data, subdomain, ip_address)` method to to handle user lookup and/or creation.
 2. Optionally, you can add an instance method called `#restrict_access?` to encapsulate any necessary role-based evaluation.
 3. If the admin record has a 'status' field, authentication will fail if it is set to anything other than 'active'.
 
