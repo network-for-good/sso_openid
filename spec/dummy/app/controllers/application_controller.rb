@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  include SsoOpenid::ApplicationHelper
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -9,11 +7,15 @@ class ApplicationController < ActionController::Base
     render text: 'root path', status: :ok
   end
 
-  def sso_openid_redirect_after_sign_in_path
-    root_path
+  def sso_openid_after_sign_in_path
+    main_app.default_path
+  end
+
+  def sso_openid_after_sign_out_path
+    main_app.default_path
   end
 
   def sso_openid_failure_path
-    root_path
+    main_app.default_path
   end
 end

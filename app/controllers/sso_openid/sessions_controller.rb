@@ -16,14 +16,14 @@ module SsoOpenid
         else
           sso_openid_sign_in(admin)
           flash[:notice] = "Signed in successfully"
-          redirect_to sso_openid_redirect_after_sign_in_path
+          redirect_to sso_openid_after_sign_in_path
         end
       end
     end
 
     def destroy
       sso_openid_sign_out
-      redirect_to root_path
+      redirect_to sso_openid_after_sign_out_path
     end
 
     def failure
@@ -31,7 +31,7 @@ module SsoOpenid
     end
 
     def setup
-      redirect_uri = sso_openid_callback_url(subdomain: request.subdomain, host: request.host, port: request.port)
+      redirect_uri = sso_openid.callback_url(subdomain: request.subdomain, host: request.host, port: request.port)
       request.env['omniauth.strategy'].options[:client_options][:redirect_uri] = redirect_uri
       Rails.logger.info "sso_openid: setting redirect_uri to #{redirect_uri}"
       render :text => "Omniauth setup phase.", :status => 200

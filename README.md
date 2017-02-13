@@ -15,9 +15,10 @@ This gem provides a wrapper around omniauth and omniauth-openid-connect for hand
 
 ## Modifications to ApplicationController
 1. Make sure you include `SsoOpenid::ApplicationHelper`.
-2. Add a method called `sso_openid_redirect_after_sign_in_oath`. This method should return the path to which signed in users should be redirected.
-3. Add a method called `sso_openid_failure_path`. This is the path to where the user will be redirected upon any failure.
-4. Add `before_filter authenticate_admin!`. Be sure to exclude this filter where necessary, such as in controller that handle the display of error messages to non-logged in users.
+2. Add a method called `sso_openid_after_sign_in_path`. This method should return the path to which signed in users should be redirected.
+3. Add a method called `sso_openid_after_sign_out_path`. This method should return the path to which users should be redirected after signing out.
+4. Add a method called `sso_openid_failure_path`. This is the path to where the user will be redirected upon any failure.
+5. Add `before_filter authenticate_admin!`. Be sure to exclude this filter where necessary, such as in controller that handle the display of error messages to non-logged in users.
 
 ## Methods this gem provides
 * `#authenticate_admin!` should run before each request to verify that a logged in admin exists. Otherwise, it will redirect to the auth path.

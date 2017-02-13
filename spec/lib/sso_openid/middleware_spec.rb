@@ -12,12 +12,12 @@ describe SsoOpenid::Middleware, type: :request do
 
   describe "a request to the auth path" do
     let(:discovery_endpoint) { APP_CONFIG[:sso_openid][:discovery_endpoint] }
-    let(:redirect_uri) { sso_openid_callback_url(subdomain: request.subdomain) }
+    let(:redirect_uri) { sso_openid.callback_url(subdomain: request.subdomain) }
     let(:encoded_redirect_uri) { ERB::Util.url_encode(redirect_uri) }
     let(:scope) { SsoOpenid::Configuration.openid_options[:scope] }
     let(:client_id) { SsoOpenid::Configuration.openid_options[:client_options][:client_id] }
 
-    before { get sso_openid_auth_path }
+    before { get sso_openid.auth_path }
 
     subject { response.location }
 
