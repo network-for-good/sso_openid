@@ -5,6 +5,7 @@ This gem provides a wrapper around omniauth and omniauth-openid-connect for hand
 ## Setup
 1. `gem nfg_openid`
 2. `bundle`
+3. Mount the engine in your routes: `mount SsoOpenid::Engine => "/"`
 
 ## Modifications to the Admin model
 1. Add a `self.from_omniauth(omniauth_data, subdomain, ip_address)` method to to handle user lookup and/or creation.
