@@ -4,6 +4,8 @@ require "sso_openid/paths"
 require "omniauth/openid_connect"
 
 module SsoOpenid
+  autoload :SpecHelpers, 'sso_openid/spec_helpers'
+
   class Configuration
 
     def self.openid_options
