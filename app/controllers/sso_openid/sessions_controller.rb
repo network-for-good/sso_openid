@@ -1,5 +1,6 @@
 module SsoOpenid
   class SessionsController < ::ApplicationController
+    include Rails.application.routes.url_helpers
 
     def create
       omniauth_data = env['omniauth.auth']

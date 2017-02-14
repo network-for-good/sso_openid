@@ -20,7 +20,7 @@ describe SsoOpenid::SessionsController, type: :controller do
     end
 
     it "redirects the user" do
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
     end
 
   end
