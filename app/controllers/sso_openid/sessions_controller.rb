@@ -2,6 +2,8 @@ module SsoOpenid
   class SessionsController < ::ApplicationController
     include Rails.application.routes.url_helpers
 
+    skip_before_filter :authenticate_admin!
+
     def create
       omniauth_data = env['omniauth.auth']
       admin = Admin.from_omniauth(omniauth_data, request.subdomain, request.ip)
