@@ -9,7 +9,7 @@ defaults:
   dms:
     host: "dm-qa.networkforgood.com"
   evo:
-    host: "sso-qa.givecorps.com"
+    host: "https://sso-qa.givecorps.com"
   user_api_url_dms:
     host: "http://sso.dm-qa.networkforgood.com"
   user_api_url_evo:
@@ -31,7 +31,7 @@ beta:
   dms:
     host: "dm.networkforgood-beta.com"
   evo:
-    host: "networkforgood-beta.com"
+    host: "https://networkforgood-beta.com"
   user_api_url_dms:
     host: "http://sso.dms.networkforgood-beta.com"
   user_api_url_evo:
@@ -49,7 +49,7 @@ staging:
   dms:
     host: "dm.networkforgood-demo.com"
   evo:
-    host: "networkforgood-demo.com"
+    host: "https://networkforgood-demo.com"
   user_api_url_dms:
     host: "http://sso.dms.networkforgood-demo.com"
   user_api_url_evo:
@@ -67,7 +67,7 @@ production:
   dms:
     host: "dm.networkforgood.com"
   evo:
-    host: "networkforgood.com"
+    host: "https://networkforgood.com"
   user_api_url_dms:
     host: "https://sso.dms.networkforgood.com"
   user_api_url_evo:
