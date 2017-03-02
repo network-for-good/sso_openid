@@ -33,7 +33,6 @@ module SsoOpenid
 
     def self.urls_for_current_environment
       return @urls_for_current_environment if @urls_for_current_environment
-      p Rails.env
       url_list = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), 'urls.yml'))).result)
       url_list_hash = HashWithIndifferentAccess.new(url_list)
       if !url_list_hash[Rails.env].nil?
