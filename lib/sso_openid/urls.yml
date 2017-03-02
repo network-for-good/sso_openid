@@ -1,0 +1,48 @@
+defaults:
+  sso_openid:
+    host: 'identity-qa.networkforgood.org'
+    discovery_endpoint: 'https://identity-qa.networkforgood.org'
+  portal:
+    host: "account-qa.networkforgood.com"
+  gp_users:
+    host: "https://users-qa.networkforgood.org"
+  dms:
+    host: "dm-qa.networkforgood.com"
+  evo:
+    host: "sso-qa.givecorps.com"
+beta:
+  sso_openid:
+    host: 'identity-uat.networkforgood.org'
+    discovery_endpoint: 'https://identity-uat.networkforgood.org'
+  portal:
+    host: "account-beta.networkforgood.com"
+  gp_users:
+    host: "https://users-uat.networkforgood.org"
+  dms:
+    host: "dm.networkforgood-beta.com"
+  evo:
+    host: "networkforgood-beta.com"
+staging:
+  sso_openid:
+    host: 'identity-sandbox.networkforgood.org'
+    discovery_endpoint: 'https://identity-sandbox.networkforgood.org'
+  portal:
+    host: "account-demo.networkforgood.com"
+  gp_users:
+    host: "https://users-sandbox.networkforgood.org"
+  dms:
+    host: "dm.networkforgood-demo.com"
+  evo:
+    host: "networkforgood-demo.com"
+production:
+  sso_openid:
+    host: 'identity.networkforgood.org'
+    discovery_endpoint: 'https://identity.networkforgood.org'
+  portal:
+    host: "account.networkforgood.com"
+  gp_users:
+    host: "https://users.networkforgood.org"
+  dms:
+    host: "dm.networkforgood.com"
+  evo:
+    host: "networkforgood.com"
