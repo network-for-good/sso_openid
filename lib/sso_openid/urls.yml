@@ -16,6 +16,10 @@ defaults:
     host: "http://sso.sso-qa.givecorps.com"
   user_api_url_gp:
     host: "https://users-qa.networkforgood.org"
+  disbursements:
+    host: "https://npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
+  gp_dashboard:
+    host: "https://npo-qa05.nfghq.org/Npo/Dashboard.aspx"
 beta:
   sso_openid:
     host: 'identity-uat.networkforgood.org'
@@ -70,3 +74,7 @@ production:
     host: "https://sso.networkforgood.com"
   user_api_url_gp:
     host: "https://users.networkforgood.org"
+  disbursements:
+    host: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
+  gp_dashboard:
+    host: "https://account.networkforgood.org/Npo/Dashboard.aspx"
