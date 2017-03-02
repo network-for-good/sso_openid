@@ -10,6 +10,12 @@ defaults:
     host: "dm-qa.networkforgood.com"
   evo:
     host: "sso-qa.givecorps.com"
+  user_api_url_dms:
+    host: "http://sso.dm-qa.networkforgood.com"
+  user_api_url_evo:
+    host: "http://sso.sso-qa.givecorps.com"
+  user_api_url_gp:
+    host: "https://users-qa.networkforgood.org"
 beta:
   sso_openid:
     host: 'identity-uat.networkforgood.org'
@@ -22,6 +28,12 @@ beta:
     host: "dm.networkforgood-beta.com"
   evo:
     host: "networkforgood-beta.com"
+  user_api_url_dms:
+    host: "http://sso.dms.networkforgood-beta.com"
+  user_api_url_evo:
+    host: "http://sso.networkforgood-beta.com"
+  user_api_url_gp:
+    host: "https://users-uat.networkforgood.org"
 staging:
   sso_openid:
     host: 'identity-sandbox.networkforgood.org'
@@ -34,6 +46,12 @@ staging:
     host: "dm.networkforgood-demo.com"
   evo:
     host: "networkforgood-demo.com"
+  user_api_url_dms:
+    host: "http://sso.dms.networkforgood-demo.com"
+  user_api_url_evo:
+    host: "http://sso.networkforgood-demo.com"
+  user_api_url_gp:
+    host: "https://users-sandbox.networkforgood.org"
 production:
   sso_openid:
     host: 'identity.networkforgood.org'
@@ -46,3 +64,9 @@ production:
     host: "dm.networkforgood.com"
   evo:
     host: "networkforgood.com"
+  user_api_url_dms:
+    host: "https://sso.dms.networkforgood.com"
+  user_api_url_evo:
+    host: "https://sso.networkforgood.com"
+  user_api_url_gp:
+    host: "https://users.networkforgood.org"
