@@ -34,13 +34,25 @@ module SsoOpenid
     end
 
     def setup
+      # Set the redirect uri
       redirect_uri = sso_openid.callback_url(subdomain: request.subdomain, host: request.host, port: request.port)
-      request.env['omniauth.strategy'].options[:client_options][:redirect_uri] = redirect_uri
+      omniauth_strategy.options[:client_options][:redirect_uri] = redirect_uri
       Rails.logger.info "sso_openid: setting redirect_uri to #{redirect_uri}"
+
+      # Set additional options if they're available as query strings
+      omniauth_strategy.options[:login_hint] = params[:login_hint] if params[:login_hint].present?
+      omniauth_strategy.options[:acr_values] = "activated:#{params[:activated]}" if params[:activated].present?
+      omniauth_strategy.options[:acr_values] = "pwdReset:#{params[:pwdReset]}" if params[:pwdReset].present?
+
+      # All finished!
       render :text => "Omniauth setup phase.", :status => 200
     end
 
     private
+
+    def omniauth_strategy
+      @omniauth_strategy ||= request.env['omniauth.strategy']
+    end
 
     def current_donor
       nil
