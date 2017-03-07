@@ -40,9 +40,9 @@ module SsoOpenid
       Rails.logger.info "sso_openid: setting redirect_uri to #{redirect_uri}"
 
       # Set additional options if they're available as query strings
-      omniauth_strategy.options[:client_options][:login_hint] = params[:login_hint] if params[:login_hint].present?
-      omniauth_strategy.options[:client_options][:acr_values] = "activated:#{params[:activated]}" if params[:activated].present?
-      omniauth_strategy.options[:client_options][:acr_values] = "pwdReset:#{params[:pwdReset]}" if params[:pwdReset].present?
+      omniauth_strategy.options[:login_hint] = params[:login_hint] if params[:login_hint].present?
+      omniauth_strategy.options[:acr_values] = "activated:#{params[:activated]}" if params[:activated].present?
+      omniauth_strategy.options[:acr_values] = "pwdReset:#{params[:pwdReset]}" if params[:pwdReset].present?
 
       # All finished!
       render :text => "Omniauth setup phase.", :status => 200
