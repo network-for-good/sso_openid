@@ -18,7 +18,7 @@ module SsoOpenid
       # returns the host. If you need a value other than the host
       # use the hash method above
       if urls_for_current_environment[method_name]
-        urls_for_current_environment[method_name][:host]
+        OpenStruct.new(urls_for_current_environment[method_name])
       else
         super
       end
