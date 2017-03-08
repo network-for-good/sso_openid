@@ -18,12 +18,8 @@ defaults:
   gp:
     host: "users-qa.networkforgood.org"
     users_api: "https://users-qa.networkforgood.org"
-  disbursements:
-    host: "npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
-    fqdn: "https://npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
-  gp_dashboard:
-    host: "npo-qa05.nfghq.org/Npo/Dashboard.aspx"
-    fqdn: "https://npo-qa05.nfghq.org/Npo/Dashboard.aspx"
+    dashboard: "https://npo-qa05.nfghq.org/Npo/Dashboard.aspx"
+    disbursements: "https://npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
 beta:
   sso_openid:
     host: "identity-uat.networkforgood.org"
@@ -84,9 +80,5 @@ production:
   gp:
     host: "users.networkforgood.org"
     users_api: "https://users.networkforgood.org"
-  disbursements:
-    host: "account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
-    fqdn: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
-  gp_dashboard:
-    host: "account.networkforgood.org/Npo/Dashboard.aspx"
-    fqdn: "https://account.networkforgood.org/Npo/Dashboard.aspx"
+    dashboard: "https://account.networkforgood.org/Npo/Dashboard.aspx"
+    disbursements: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
