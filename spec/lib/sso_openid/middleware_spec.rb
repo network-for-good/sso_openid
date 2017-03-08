@@ -11,7 +11,7 @@ describe SsoOpenid::Middleware, type: :request do
   end
 
   describe "a request to the auth path" do
-    let(:discovery_endpoint) { SsoOpenid::Urls[:sso_openid][:discovery_endpoint] }
+    let(:discovery_endpoint) { SsoOpenid::Urls.sso_openid.discovery_endpoint }
     let(:redirect_uri) { sso_openid.callback_url(subdomain: request.subdomain) }
     let(:encoded_redirect_uri) { ERB::Util.url_encode(redirect_uri) }
     let(:scope) { SsoOpenid::Configuration.openid_options[:scope] }

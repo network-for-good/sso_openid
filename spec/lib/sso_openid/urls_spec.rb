@@ -5,9 +5,14 @@ describe SsoOpenid::Urls do
     expect(SsoOpenid::Urls.evo).to eq(OpenStruct.new(SsoOpenid::Urls[:evo]))
   end
 
-  it "should return the host for a particular entry when asked" do
-    expect(SsoOpenid::Urls.user_api_url_gp.host).to eq(SsoOpenid::Urls[:user_api_url_gp][:host])
+  it "should return the gp users_api for a particular entry when asked" do
+    expect(SsoOpenid::Urls.gp.users_api).to eq(SsoOpenid::Urls[:gp][:users_api])
   end
+
+  it "should return the evo host for a particular entry when asked" do
+    expect(SsoOpenid::Urls.evo.host).to eq(SsoOpenid::Urls[:evo][:host])
+  end
+
 
   it "should return the fqdm for a particular entry when asked" do
     expect(SsoOpenid::Urls.dms.fqdn).to eq(SsoOpenid::Urls[:dms][:fqdn])

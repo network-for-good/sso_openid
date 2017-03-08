@@ -15,15 +15,15 @@ defaults:
   evo:
     host: "sso-qa.givecorps.com"
     fqdn: "https://sso.sso-qa.givecorps.com"
-  user_api_url_dms:
+  dms:
     host: "dm-qa.networkforgood.com"
     fqdn: "http://sso.dm-qa.networkforgood.com"
-  user_api_url_evo:
+  evo:
     host: "sso-qa.givecorps.com"
     fqdn: "http://sso.sso-qa.givecorps.com"
-  user_api_url_gp:
+  gp:
     host: "users-qa.networkforgood.org"
-    fqdn: "https://users-qa.networkforgood.org"
+    users_api: "https://users-qa.networkforgood.org"
   disbursements:
     host: "npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
     fqdn: "https://npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
@@ -47,15 +47,15 @@ beta:
   evo:
     host: "networkforgood-beta.com"
     fqdn: "https://sso.networkforgood-beta.com"
-  user_api_url_dms:
+  dms:
     host: "dm.networkforgood-beta.com"
     fqdn: "http://sso.dm.networkforgood-beta.com"
-  user_api_url_evo:
+  evo:
     host: "networkforgood-beta.com"
     fqdn: "http://sso.networkforgood-beta.com"
-  user_api_url_gp:
+  gp:
     host: "users-uat.networkforgood.org"
-    fqdn: "https://users-uat.networkforgood.org"
+    users_api: "https://users-uat.networkforgood.org"
 staging:
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
@@ -73,15 +73,15 @@ staging:
   evo:
     host: "networkforgood-demo.com"
     fqdn: "https://sso.networkforgood-demo.com"
-  user_api_url_dms:
+  dms:
     host: "dm.networkforgood-demo.com"
     fqdn: "http://sso.dm.networkforgood-demo.com"
-  user_api_url_evo:
+  evo:
     host: "networkforgood-demo.com"
     fqdn: "http://sso.networkforgood-demo.com"
-  user_api_url_gp:
+  gp:
     host: "users-sandbox.networkforgood.org"
-    fqdn: "https://users-sandbox.networkforgood.org"
+    users_api: "https://users-sandbox.networkforgood.org"
 production:
   sso_openid:
     host: "identity.networkforgood.org"
@@ -99,15 +99,15 @@ production:
   evo:
     host: "networkforgood.com"
     fqdn: "https://sso.networkforgood.com"
-  user_api_url_dms:
+  dms:
     host: "dm.networkforgood.com"
     fqdn: "https://sso.dm.networkforgood.com"
-  user_api_url_evo:
+  evo:
     host: "networkforgood.com"
     fqdn: "https://sso.networkforgood.com"
-  user_api_url_gp:
+  gp:
     host: "users.networkforgood.org"
-    fqdn: "https://users.networkforgood.org"
+    users_api: "https://users.networkforgood.org"
   disbursements:
     host: "account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
     fqdn: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"

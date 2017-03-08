@@ -14,7 +14,7 @@ module SsoOpenid
         client_options: {
           port: 443,
           scheme: "https",
-          host: SsoOpenid::Urls.sso_openid,
+          host: SsoOpenid::Urls.sso_openid.host,
           identifier: APP_CONFIG[:sso_openid][:client_id],
           secret: APP_CONFIG[:sso_openid][:client_secret],
         },
@@ -23,7 +23,7 @@ module SsoOpenid
         setup_path: SsoOpenid::Paths.setup_path,
         name: :sso_openid,
         discovery: true,
-        issuer: SsoOpenid::Urls[:sso_openid][:discovery_endpoint],
+        issuer: SsoOpenid::Urls.sso_openid.discovery_endpoint,
         setup: true,
         scope: [:openid, :email, :profile, :address],
       }
