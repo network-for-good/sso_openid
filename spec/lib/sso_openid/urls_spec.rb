@@ -10,8 +10,14 @@ describe SsoOpenid::Urls do
   end
 
   it "should return the fqdm for a particular entry when asked" do
-    expect(SsoOpenid::Urls.dms.fqdm).to eq(SsoOpenid::Urls[:dms][:fqdm])
+    expect(SsoOpenid::Urls.dms.fqdn).to eq(SsoOpenid::Urls[:dms][:fqdn])
   end
+
+
+  it "should return the non-standard values for a particular entry when asked" do
+    expect(SsoOpenid::Urls.sso_openid.discovery_endpoint).to eq(SsoOpenid::Urls[:sso_openid][:discovery_endpoint])
+  end
+
 
   context 'when operating in a different environment' do
     before do
@@ -20,7 +26,7 @@ describe SsoOpenid::Urls do
     end
 
     it "should return the server for that environment" do
-      expect(SsoOpenid::Urls.evo.fqdm).to eq("https://sso.networkforgood.com")
+      expect(SsoOpenid::Urls.evo.fqdn).to eq("https://sso.networkforgood.com")
     end
   end
 end

@@ -1,116 +1,116 @@
 defaults:
   sso_openid:
     host: "identity-qa.networkforgood.org"
-    fqdm: "https://identity-qa.networkforgood.org"
+    fqdn: "https://identity-qa.networkforgood.org"
     discovery_endpoint: "https://identity-qa.networkforgood.org"
   portal:
     host: "account-qa.networkforgood.com"
-    fqdm: "https://account-qa.networkforgood.com"
+    fqdn: "https://account-qa.networkforgood.com"
   identity_users:
     host: "users-qa.networkforgood.org"
-    fqdm: "https://users-qa.networkforgood.org"
+    fqdn: "https://users-qa.networkforgood.org"
   dms:
     host: "dm-qa.networkforgood.com"
-    fqdm: "https://sso.dm-qa.networkforgood.com"
+    fqdn: "https://sso.dm-qa.networkforgood.com"
   evo:
     host: "sso-qa.givecorps.com"
-    fqdm: "https://sso.sso-qa.givecorps.com"
+    fqdn: "https://sso.sso-qa.givecorps.com"
   user_api_url_dms:
     host: "dm-qa.networkforgood.com"
-    fqdm: "http://sso.dm-qa.networkforgood.com"
+    fqdn: "http://sso.dm-qa.networkforgood.com"
   user_api_url_evo:
     host: "sso-qa.givecorps.com"
-    fqdm: "http://sso.sso-qa.givecorps.com"
+    fqdn: "http://sso.sso-qa.givecorps.com"
   user_api_url_gp:
     host: "users-qa.networkforgood.org"
-    fqdm: "https://users-qa.networkforgood.org"
+    fqdn: "https://users-qa.networkforgood.org"
   disbursements:
     host: "npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
-    fqdm: "https://npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
+    fqdn: "https://npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
   gp_dashboard:
     host: "npo-qa05.nfghq.org/Npo/Dashboard.aspx"
-    fqdm: "https://npo-qa05.nfghq.org/Npo/Dashboard.aspx"
+    fqdn: "https://npo-qa05.nfghq.org/Npo/Dashboard.aspx"
 beta:
   sso_openid:
     host: "identity-uat.networkforgood.org"
-    fqdm: "https://identity-uat.networkforgood.org"
+    fqdn: "https://identity-uat.networkforgood.org"
     discovery_endpoint: "https://identity-uat.networkforgood.org"
   portal:
     host: "account-beta.networkforgood.com"
-    fqdm: "https://account-beta.networkforgood.com"
+    fqdn: "https://account-beta.networkforgood.com"
   identity_users:
     host: "users-uat.networkforgood.org"
-    fqdm: "https://users-uat.networkforgood.org"
+    fqdn: "https://users-uat.networkforgood.org"
   dms:
     host: "dm.networkforgood-beta.com"
-    fqdm: "https://sso.dm.networkforgood-beta.com"
+    fqdn: "https://sso.dm.networkforgood-beta.com"
   evo:
     host: "networkforgood-beta.com"
-    fqdm: "https://sso.networkforgood-beta.com"
+    fqdn: "https://sso.networkforgood-beta.com"
   user_api_url_dms:
     host: "dm.networkforgood-beta.com"
-    fqdm: "http://sso.dm.networkforgood-beta.com"
+    fqdn: "http://sso.dm.networkforgood-beta.com"
   user_api_url_evo:
     host: "networkforgood-beta.com"
-    fqdm: "http://sso.networkforgood-beta.com"
+    fqdn: "http://sso.networkforgood-beta.com"
   user_api_url_gp:
     host: "users-uat.networkforgood.org"
-    fqdm: "https://users-uat.networkforgood.org"
+    fqdn: "https://users-uat.networkforgood.org"
 staging:
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
-    fqdm: "https://identity-sandbox.networkforgood.org"
+    fqdn: "https://identity-sandbox.networkforgood.org"
     discovery_endpoint: "https://identity-sandbox.networkforgood.org"
   portal:
     host: "account-demo.networkforgood.com"
-    fqdm: "https://account-demo.networkforgood.com"
+    fqdn: "https://account-demo.networkforgood.com"
   identity_users:
     host: "users-sandbox.networkforgood.org"
-    fqdm: "https://users-sandbox.networkforgood.org"
+    fqdn: "https://users-sandbox.networkforgood.org"
   dms:
     host: "dm.networkforgood-demo.com"
-    fqdm: "https://sso.dm.networkforgood-demo.com"
+    fqdn: "https://sso.dm.networkforgood-demo.com"
   evo:
     host: "networkforgood-demo.com"
-    fqdm: "https://sso.networkforgood-demo.com"
+    fqdn: "https://sso.networkforgood-demo.com"
   user_api_url_dms:
     host: "dm.networkforgood-demo.com"
-    fqdm: "http://sso.dm.networkforgood-demo.com"
+    fqdn: "http://sso.dm.networkforgood-demo.com"
   user_api_url_evo:
     host: "networkforgood-demo.com"
-    fqdm: "http://sso.networkforgood-demo.com"
+    fqdn: "http://sso.networkforgood-demo.com"
   user_api_url_gp:
     host: "users-sandbox.networkforgood.org"
-    fqdm: "https://users-sandbox.networkforgood.org"
+    fqdn: "https://users-sandbox.networkforgood.org"
 production:
   sso_openid:
     host: "identity.networkforgood.org"
-    fqdm: "https://identity.networkforgood.org"
+    fqdn: "https://identity.networkforgood.org"
     discovery_endpoint: "https://identity.networkforgood.org"
   portal:
     host: "account.networkforgood.com"
-    fqdm: "https://account.networkforgood.com"
+    fqdn: "https://account.networkforgood.com"
   identity_users:
     host: "users.networkforgood.org"
-    fqdm: "https://users.networkforgood.org"
+    fqdn: "https://users.networkforgood.org"
   dms:
     host: "dm.networkforgood.com"
-    fqdm: "https://sso.dm.networkforgood.com"
+    fqdn: "https://sso.dm.networkforgood.com"
   evo:
     host: "networkforgood.com"
-    fqdm: "https://sso.networkforgood.com"
+    fqdn: "https://sso.networkforgood.com"
   user_api_url_dms:
     host: "dm.networkforgood.com"
-    fqdm: "https://sso.dm.networkforgood.com"
+    fqdn: "https://sso.dm.networkforgood.com"
   user_api_url_evo:
     host: "networkforgood.com"
-    fqdm: "https://sso.networkforgood.com"
+    fqdn: "https://sso.networkforgood.com"
   user_api_url_gp:
     host: "users.networkforgood.org"
-    fqdm: "https://users.networkforgood.org"
+    fqdn: "https://users.networkforgood.org"
   disbursements:
     host: "account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
-    fqdm: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
+    fqdn: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
   gp_dashboard:
     host: "account.networkforgood.org/Npo/Dashboard.aspx"
-    fqdm: "https://account.networkforgood.org/Npo/Dashboard.aspx"
+    fqdn: "https://account.networkforgood.org/Npo/Dashboard.aspx"
