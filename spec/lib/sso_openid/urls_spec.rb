@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe SsoOpenid::Urls do
   it "should read the values of the urls.yml file and return the requested application url " do
-    expect(SsoOpenid::Urls.evo).to eq("sso-qa.givecorps.com")
+    expect(SsoOpenid::Urls.evo).to eq("https://sso-qa.givecorps.com")
   end
 
   it "using the hash signature with host should return the same value as the method signature" do
@@ -16,7 +16,7 @@ describe SsoOpenid::Urls do
     end
 
     it "should return the server for that environment" do
-      expect(SsoOpenid::Urls.evo).to eq("networkforgood.com")
+      expect(SsoOpenid::Urls.evo).to eq("https://networkforgood.com")
     end
   end
 end

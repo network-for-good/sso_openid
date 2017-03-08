@@ -90,6 +90,14 @@ describe SsoOpenid::ApplicationHelper do
         expect(self).to receive(:redirect_to).with(sso_openid.auth_path)
         subject
       end
+
+      context "with additional params" do
+        let!(:params) { { login_hint: 'foo@bar.com' } }
+        it "includes additional params when redirecting" do
+          expect(self).to receive(:redirect_to).with(sso_openid.auth_path(params))
+          subject
+        end
+      end
     end
   end
 
