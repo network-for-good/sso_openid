@@ -11,12 +11,6 @@ defaults:
     fqdn: "https://users-qa.networkforgood.org"
   dms:
     host: "dm-qa.networkforgood.com"
-    fqdn: "https://sso.dm-qa.networkforgood.com"
-  evo:
-    host: "sso-qa.givecorps.com"
-    fqdn: "https://sso.sso-qa.givecorps.com"
-  dms:
-    host: "dm-qa.networkforgood.com"
     fqdn: "http://sso.dm-qa.networkforgood.com"
   evo:
     host: "sso-qa.givecorps.com"
@@ -43,12 +37,6 @@ beta:
     fqdn: "https://users-uat.networkforgood.org"
   dms:
     host: "dm.networkforgood-beta.com"
-    fqdn: "https://sso.dm.networkforgood-beta.com"
-  evo:
-    host: "networkforgood-beta.com"
-    fqdn: "https://sso.networkforgood-beta.com"
-  dms:
-    host: "dm.networkforgood-beta.com"
     fqdn: "http://sso.dm.networkforgood-beta.com"
   evo:
     host: "networkforgood-beta.com"
@@ -69,12 +57,6 @@ staging:
     fqdn: "https://users-sandbox.networkforgood.org"
   dms:
     host: "dm.networkforgood-demo.com"
-    fqdn: "https://sso.dm.networkforgood-demo.com"
-  evo:
-    host: "networkforgood-demo.com"
-    fqdn: "https://sso.networkforgood-demo.com"
-  dms:
-    host: "dm.networkforgood-demo.com"
     fqdn: "http://sso.dm.networkforgood-demo.com"
   evo:
     host: "networkforgood-demo.com"
@@ -93,12 +75,6 @@ production:
   identity_users:
     host: "users.networkforgood.org"
     fqdn: "https://users.networkforgood.org"
-  dms:
-    host: "dm.networkforgood.com"
-    fqdn: "https://sso.dm.networkforgood.com"
-  evo:
-    host: "networkforgood.com"
-    fqdn: "https://sso.networkforgood.com"
   dms:
     host: "dm.networkforgood.com"
     fqdn: "https://sso.dm.networkforgood.com"
