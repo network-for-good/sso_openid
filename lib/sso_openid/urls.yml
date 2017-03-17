@@ -14,7 +14,7 @@ defaults:
     fqdn: "http://sso.dm-qa.networkforgood.com"
   evo:
     host: "sso-qa.givecorps.com"
-    fqdn: "http://sso.sso-qa.givecorps.com"
+    fqdn: "http://baltimore.sso-qa.givecorps.com"
   gp:
     host: "users-qa.networkforgood.org"
     users_api: "https://users-qa.networkforgood.org"
@@ -36,7 +36,7 @@ beta:
     fqdn: "http://sso.dm.networkforgood-beta.com"
   evo:
     host: "networkforgood-beta.com"
-    fqdn: "http://sso.networkforgood-beta.com"
+    fqdn: "http://baltimore.networkforgood-beta.com"
   gp:
     host: "users-uat.networkforgood.org"
     users_api: "https://users-uat.networkforgood.org"
@@ -58,7 +58,7 @@ staging:
     fqdn: "http://sso.dm.networkforgood-demo.com"
   evo:
     host: "networkforgood-demo.com"
-    fqdn: "http://sso.networkforgood-demo.com"
+    fqdn: "http://baltimore.networkforgood-demo.com"
   gp:
     host: "users-sandbox.networkforgood.org"
     users_api: "https://users-sandbox.networkforgood.org"
@@ -80,7 +80,7 @@ production:
     fqdn: "https://sso.dm.networkforgood.com"
   evo:
     host: "networkforgood.com"
-    fqdn: "https://sso.networkforgood.com"
+    fqdn: "https://baltimore.networkforgood.com"
   gp:
     host: "users.networkforgood.org"
     users_api: "https://users.networkforgood.org"

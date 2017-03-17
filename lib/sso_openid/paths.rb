@@ -17,6 +17,10 @@ module SsoOpenid
         "#{auth_path}/callback"
       end
 
+      def failure_path
+        "/auth/failure"
+      end
+
       def setup_path
         "#{auth_path}/setup"
       end
