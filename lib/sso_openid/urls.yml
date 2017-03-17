@@ -40,6 +40,8 @@ beta:
   gp:
     host: "users-uat.networkforgood.org"
     users_api: "https://users-uat.networkforgood.org"
+    dashboard: "https://account-uat.networkforgood.org/Npo/Dashboard.aspx"
+    disbursements: "https://account-uat.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 staging:
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
@@ -60,6 +62,8 @@ staging:
   gp:
     host: "users-sandbox.networkforgood.org"
     users_api: "https://users-sandbox.networkforgood.org"
+    dashboard: "https://account-sandbox.networkforgood.org/Npo/Dashboard.aspx"
+    disbursements: "https://account-sandbox.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 production:
   sso_openid:
     host: "identity.networkforgood.org"
