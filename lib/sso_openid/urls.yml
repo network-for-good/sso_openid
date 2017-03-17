@@ -26,8 +26,8 @@ beta:
     fqdn: "https://identity-uat.networkforgood.org"
     discovery_endpoint: "https://identity-uat.networkforgood.org"
   portal:
-    host: "account-beta.networkforgood.com"
-    fqdn: "https://account-beta.networkforgood.com"
+    host: "account.networkforgood-beta.com"
+    fqdn: "https://account.networkforgood-beta.com"
   identity_users:
     host: "users-uat.networkforgood.org"
     fqdn: "https://users-uat.networkforgood.org"
@@ -48,8 +48,8 @@ staging:
     fqdn: "https://identity-sandbox.networkforgood.org"
     discovery_endpoint: "https://identity-sandbox.networkforgood.org"
   portal:
-    host: "account-demo.networkforgood.com"
-    fqdn: "https://account-demo.networkforgood.com"
+    host: "account.networkforgood-demo.com"
+    fqdn: "https://account.networkforgood-demo.com"
   identity_users:
     host: "users-sandbox.networkforgood.org"
     fqdn: "https://users-sandbox.networkforgood.org"
