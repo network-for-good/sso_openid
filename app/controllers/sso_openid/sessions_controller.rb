@@ -38,6 +38,7 @@ module SsoOpenid
       redirect_uri = sso_openid.callback_url(subdomain: request.subdomain, host: request.host, port: request.port)
       omniauth_strategy.options[:client_options][:redirect_uri] = redirect_uri
       Rails.logger.info "sso_openid: setting redirect_uri to #{redirect_uri}"
+      Rails.logger.info "request is #{request.inspect}"
 
       # Set additional options if they're available as query strings
       omniauth_strategy.options[:login_hint] = params[:login_hint] if params[:login_hint].present?
