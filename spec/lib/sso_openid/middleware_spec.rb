@@ -96,6 +96,24 @@ describe SsoOpenid::Middleware, type: :request do
         expect(response).to redirect_to(root_path)
       end
     end
+
+    context "with an invalid grant" do
+      let(:stubbed_response) { { error: nil, error_description: nil } }
+      let(:exception) { Rack::OAuth2::Client::Error.new('invalid_grant', stubbed_response) }
+
+      before do
+        allow_any_instance_of(OmniAuth::Strategies::OpenIDConnect).to receive(:call).and_raise(exception)
+        get callback_path_with_args
+      end
+
+      it "does not raise the exception" do
+        expect(response.status).not_to eql 500
+      end
+
+      it "redirects to the auth path" do
+        expect(response).to redirect_to(SsoOpenid::Paths.auth_path)
+      end
+    end
   end
 
 end
