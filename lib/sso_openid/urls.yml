@@ -1,27 +1,5 @@
 defaults:
   sso_openid:
-    host: "identity-qa.networkforgood.org"
-    fqdn: "https://identity-qa.networkforgood.org"
-    discovery_endpoint: "https://identity-qa.networkforgood.org"
-  portal:
-    host: "account-qa.networkforgood.com"
-    fqdn: "https://account-qa.networkforgood.com"
-  identity_users:
-    host: "users-qa.networkforgood.org"
-    fqdn: "https://users-qa.networkforgood.org"
-  dms:
-    host: "dm-qa.networkforgood.com"
-    fqdn: "http://sso.dm-qa.networkforgood.com"
-  evo:
-    host: "sso-qa.givecorps.com"
-    fqdn: "http://baltimore.sso-qa.givecorps.com"
-  gp:
-    host: "users-qa.networkforgood.org"
-    users_api: "https://users-qa.networkforgood.org"
-    dashboard: "https://npo-qa05.nfghq.org/Npo/Dashboard.aspx"
-    disbursements: "https://npo-qa05.nfghq.org/Npo/AccountManagement/OrganizationInfo.aspx"
-beta:
-  sso_openid:
     host: "identity-uat.networkforgood.org"
     fqdn: "https://identity-uat.networkforgood.org"
     discovery_endpoint: "https://identity-uat.networkforgood.org"
