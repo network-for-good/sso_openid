@@ -18,7 +18,7 @@ module SsoOpenid
     def current_admin
       return @current_admin if @current_admin
       return nil if session[:admin_uid].nil?
-      @current_admin = Admin.find_by(uid: session[:admin_uid], id: session[:admin_id])
+      @current_admin = ::Admin.find_by(uid: session[:admin_uid], id: session[:admin_id])
     end
 
     def authenticate_admin!
