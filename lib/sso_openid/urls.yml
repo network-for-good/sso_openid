@@ -20,6 +20,13 @@ defaults:
     users_api: "https://users-uat.networkforgood.org"
     dashboard: "https://account-uat.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account-uat.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
+development:
+  dms:
+    host: "dm.lvh.me"
+    fqdn: "http://dev.lvh.me::3001"
+  evo:
+    host: "lvh.me"
+    fqdn: "http://basic.lvh.me:3000"
 staging:
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
