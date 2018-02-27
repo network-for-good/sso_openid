@@ -31,7 +31,7 @@ describe SsoOpenid::Urls do
     end
 
     it "should return the server for that environment" do
-      expect(SsoOpenid::Urls.evo.fqdn).to eq("https://evo-admin.networkforgood.com")
+      expect(SsoOpenid::Urls.evo.fqdn).to eq("https://api.networkforgood.com")
     end
   end
 end
