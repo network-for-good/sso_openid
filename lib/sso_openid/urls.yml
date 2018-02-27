@@ -14,7 +14,7 @@ defaults:
     fqdn: "http://sso.dm.networkforgood-beta.com"
   evo:
     host: "networkforgood-beta.com"
-    fqdn: "http://evo-admin.networkforgood-beta.com"
+    fqdn: "http://api.networkforgood-beta.com"
   gp:
     host: "users-uat.networkforgood.org"
     users_api: "https://users-uat.networkforgood.org"
@@ -46,7 +46,7 @@ staging:
     fqdn: "http://sso.dm.networkforgood-demo.com"
   evo:
     host: "networkforgood-demo.com"
-    fqdn: "http://evo-admin.networkforgood-demo.com"
+    fqdn: "http://api.networkforgood-demo.com"
   gp:
     host: "users-sandbox.networkforgood.org"
     users_api: "https://users-sandbox.networkforgood.org"
@@ -68,7 +68,7 @@ production:
     fqdn: "https://sso.dm.networkforgood.com"
   evo:
     host: "networkforgood.com"
-    fqdn: "https://evo-admin.networkforgood.com"
+    fqdn: "https://api.networkforgood.com"
   gp:
     host: "users.networkforgood.org"
     users_api: "https://users.networkforgood.org"
@@ -77,4 +77,4 @@ production:
 development:
   evo:
     host: "lvh.me:3000"
-    fqdn: "http://evo-admin.lvh.me:3000"
+    fqdn: "http://api.lvh.me:3000"
