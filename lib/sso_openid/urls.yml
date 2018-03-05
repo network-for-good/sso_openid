@@ -21,9 +21,6 @@ defaults:
     dashboard: "https://account-uat.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account-uat.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 test:
-  portal:
-    host: "account.lvh.me:3002"
-    fqdn: "http://account.lvh.me:3002"
   dms:
     host: "dm.lvh.me:3001"
     fqdn: "http://dev.dm.lvh.me:3001"
