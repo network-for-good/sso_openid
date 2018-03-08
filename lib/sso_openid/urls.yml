@@ -81,7 +81,3 @@ production:
     users_api: "https://users.networkforgood.org"
     dashboard: "https://account.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
-development:
-  evo:
-    host: "lvh.me:3000"
-    fqdn: "http://api.lvh.me:3000"
