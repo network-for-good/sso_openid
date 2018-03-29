@@ -11,10 +11,10 @@ defaults:
     fqdn: "https://users-uat.networkforgood.org"
   dms:
     host: "dm.networkforgood-beta.com"
-    fqdn: "http://sso.dm.networkforgood-beta.com"
+    fqdn: "https://sso.dm.networkforgood-beta.com"
   evo:
     host: "networkforgood-beta.com"
-    fqdn: "http://api.networkforgood-beta.com"
+    fqdn: "https://api.networkforgood-beta.com"
   gp:
     host: "users-uat.networkforgood.org"
     users_api: "https://users-uat.networkforgood.org"
@@ -50,10 +50,10 @@ staging:
     fqdn: "https://users-sandbox.networkforgood.org"
   dms:
     host: "dm.networkforgood-demo.com"
-    fqdn: "http://sso.dm.networkforgood-demo.com"
+    fqdn: "https://sso.dm.networkforgood-demo.com"
   evo:
     host: "networkforgood-demo.com"
-    fqdn: "http://api.networkforgood-demo.com"
+    fqdn: "https://api.networkforgood-demo.com"
   gp:
     host: "users-sandbox.networkforgood.org"
     users_api: "https://users-sandbox.networkforgood.org"
