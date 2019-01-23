@@ -2,10 +2,10 @@ module SsoOpenid
   class SessionsController < ::ApplicationController
     include Rails.application.routes.url_helpers
 
-    skip_before_filter :authenticate_admin!, raise: false
+    skip_before_action :authenticate_admin!, raise: false
 
     def create
-      omniauth_data = env['omniauth.auth']
+      omniauth_data = request.env['omniauth.auth']
       admin = Admin.from_omniauth(omniauth_data, request.subdomain, request.ip)
       if admin.nil?
         failure
