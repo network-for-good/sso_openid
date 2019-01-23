@@ -45,7 +45,7 @@ module SsoOpenid
       omniauth_strategy.options[:acr_values] = "pwdReset:#{params[:pwdReset]}" if params[:pwdReset].present?
 
       # All finished!
-      render :text => "Omniauth setup phase.", :status => 200
+      render plain: "Omniauth setup phase.", status: 200
     end
 
     private

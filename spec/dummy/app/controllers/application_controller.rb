@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def root
-    render text: 'root path', status: :ok
+    render plain: 'root path', status: :ok
   end
 
   def sso_openid_after_sign_in_path
