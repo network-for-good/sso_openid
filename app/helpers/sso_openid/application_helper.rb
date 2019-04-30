@@ -6,6 +6,7 @@ module SsoOpenid
         session[:admin_uid] = admin.uid
         session[:admin_id] = admin.id
       end
+      after_sso_sign_in_call_back
       @current_admin = admin
     end
 
@@ -13,6 +14,11 @@ module SsoOpenid
       session.delete(:admin_uid)
       session.delete(:admin_id)
       reset_session
+    end
+
+    def after_sso_sign_in_call_back
+      # This can be overridden in the including application
+      # to run processes after a user successfully signs in.
     end
 
     def current_admin
