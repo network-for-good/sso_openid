@@ -59,6 +59,28 @@ staging:
     users_api: "https://users-sandbox.networkforgood.org"
     dashboard: "https://account-sandbox.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account-sandbox.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
+qa:
+  sso_openid:
+    host: "identity-sandbox.networkforgood.org"
+    fqdn: "https://identity-sandbox.networkforgood.org"
+    discovery_endpoint: "https://identity-sandbox.networkforgood.org"
+  portal:
+    host: "account.networkforgood-qa.com"
+    fqdn: "https://account.networkforgood-qa.com"
+  identity_users:
+    host: "users-sandbox.networkforgood.org"
+    fqdn: "https://users-sandbox.networkforgood.org"
+  dms:
+    host: "dm.networkforgood-qa.com"
+    fqdn: "https://sso.dm.networkforgood-qa.com"
+  evo:
+    host: "networkforgood-qa.com"
+    fqdn: "https://api.networkforgood-qa.com"
+  gp:
+    host: "users-sandbox.networkforgood.org"
+    users_api: "https://users-sandbox.networkforgood.org"
+    dashboard: "https://account-sandbox.networkforgood.org/Npo/Dashboard.aspx"
+    disbursements: "https://account-sandbox.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 production:
   sso_openid:
     host: "identity.networkforgood.org"
