@@ -16,10 +16,10 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 5.2"
+  s.add_dependency "rails", "~> 5.0"
   s.add_dependency "omniauth", "~> 1.9.0"
   s.add_dependency "omniauth-openid-connect"
-  s.add_dependency "json-jwt"
+  s.add_dependency "json-jwt", "~> 1.9.4"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
