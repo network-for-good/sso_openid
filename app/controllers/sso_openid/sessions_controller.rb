@@ -11,14 +11,14 @@ module SsoOpenid
         failure
       else
         if admin.respond_to?(:restrict_access?) && admin.restrict_access?
-          flash[:error] = "You don't have permission to access this site"
+          flash[:error] = "You don't have permission to access this site."
           failure
         elsif admin.respond_to?(:status) && admin.status != 'active'
           flash[:error] = "You cannot access this site. Your account has been disabled."
           failure
         else
           sso_openid_sign_in(admin)
-          flash[:notice] = "Signed in successfully"
+          flash[:notice] = "You have logged in successfully."
           redirect_to sso_openid_after_sign_in_path
         end
       end
