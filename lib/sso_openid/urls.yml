@@ -37,6 +37,28 @@ development:
   evo:
     host: "lvh.me:3000"
     fqdn: "http://basic.lvh.me:3000"
+demo:
+  sso_openid:
+    host: "identity-sandbox.networkforgood.org"
+    fqdn: "https://identity-sandbox.networkforgood.org"
+    discovery_endpoint: "https://identity-sandbox.networkforgood.org"
+  portal:
+    host: "account.networkforgood-demo.com"
+    fqdn: "https://account.networkforgood-demo.com"
+  identity_users:
+    host: "users-sandbox.networkforgood.org"
+    fqdn: "https://users-sandbox.networkforgood.org"
+  dms:
+    host: "dm.networkforgood-demo.com"
+    fqdn: "https://sso.dm.networkforgood-demo.com"
+  evo:
+    host: "networkforgood-demo.com"
+    fqdn: "https://api.networkforgood-demo.com"
+  gp:
+    host: "users-sandbox.networkforgood.org"
+    users_api: "https://users-sandbox.networkforgood.org"
+    dashboard: "https://account-sandbox.networkforgood.org/Npo/Dashboard.aspx"
+    disbursements: "https://account-sandbox.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 staging:
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
