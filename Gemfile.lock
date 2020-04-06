@@ -4,7 +4,7 @@ PATH
     sso_openid (0.0.3)
       json-jwt (~> 1.9.4)
       nokogiri (~> 1.10.4)
-      omniauth (~> 1.9.0)
+      omniauth (~> 1.9.1)
       omniauth-openid-connect
       rails (~> 4.2.0)
 
@@ -50,7 +50,7 @@ GEM
     aes_key_wrap (1.0.1)
     arel (6.0.4)
     attr_required (1.0.1)
-    bindata (2.4.4)
+    bindata (2.4.7)
     builder (3.2.3)
     capybara (2.18.0)
       addressable
@@ -66,11 +66,11 @@ GEM
     erubis (2.7.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    hashie (3.6.0)
+    hashie (4.1.0)
     httpclient (2.8.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    json (2.2.0)
+    json (2.3.0)
     json-jwt (1.9.4)
       activesupport
       aes_key_wrap
@@ -85,8 +85,8 @@ GEM
     minitest (5.11.3)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
-    omniauth (1.9.0)
-      hashie (>= 3.4.6, < 3.7.0)
+    omniauth (1.9.1)
+      hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
     omniauth-openid-connect (0.2.3)
       addressable (~> 2.3)
@@ -104,7 +104,7 @@ GEM
       validate_url
       webfinger (>= 1.0.1)
     public_suffix (3.0.2)
-    rack (1.6.11)
+    rack (1.6.13)
     rack-oauth2 (1.10.0)
       activesupport
       attr_required
@@ -197,4 +197,4 @@ DEPENDENCIES
   sso_openid!
 
 BUNDLED WITH
-   1.17.0
+   1.17.3
