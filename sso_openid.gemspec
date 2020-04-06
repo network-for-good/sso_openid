@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.2.0"
   s.add_dependency "omniauth", "~> 1.9.1"
   s.add_dependency "omniauth-openid-connect"
-  s.add_dependency "json-jwt", "~> 1.9.4"
+  s.add_dependency "json-jwt", ">= 1.9.4", "< 1.12.0"
   s.add_dependency "nokogiri", "~> 1.10.4"
 
   s.add_development_dependency "sqlite3"
