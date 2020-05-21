@@ -26,7 +26,7 @@ module SsoOpenid
         return true
       else
         session[:stored_location] = request.path
-        redirect_to sso_openid.auth_path(params)
+        redirect_to sso_openid.auth_path(params.except("controller", "action"))
       end
     end
 
