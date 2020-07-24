@@ -6,11 +6,13 @@ end
 
 describe SsoOpenid::ApplicationHelper do
   let(:admin) { Admin.new }
+  let(:options) { {} }
 
   describe '#sso_openid_sign_in' do
-    before { sso_openid_sign_in(admin, options) }
 
     context "storing the admin" do
+      before { sso_openid_sign_in(admin, options) }
+
       let(:options) { {} }
 
       it "stores the admin_uid" do
@@ -27,6 +29,8 @@ describe SsoOpenid::ApplicationHelper do
     end
 
     context "not storing the admin" do
+      before { sso_openid_sign_in(admin, options) }
+
       let(:options) { { store: false } }
 
       it "does not store the admin_uid" do
@@ -40,6 +44,11 @@ describe SsoOpenid::ApplicationHelper do
       it "sets the current_admin" do
         expect(@current_admin).to eql(admin)
       end
+    end
+
+    it 'will run the after sign in call backs' do
+      expect(self).to receive(:after_sso_sign_in_call_back)
+      sso_openid_sign_in(admin, options)
     end
   end
 
