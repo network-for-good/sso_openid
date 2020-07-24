@@ -111,7 +111,7 @@ GEM
       webfinger (>= 1.0.1)
     public_suffix (3.0.3)
     rack (2.2.2)
-    rack-oauth2 (1.11.0)
+    rack-oauth2 (1.16.0)
       activesupport
       attr_required
       httpclient
