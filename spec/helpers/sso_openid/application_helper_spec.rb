@@ -88,7 +88,7 @@ describe SsoOpenid::ApplicationHelper do
 
     context "with no current_admin" do
       let(:path) { '/foo' }
-      let(:request) { double("Request", path: path) }
+      let(:request) { double("Request", fullpath: path) }
 
       it "sets the stored_location" do
         subject

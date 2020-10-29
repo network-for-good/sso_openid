@@ -31,7 +31,8 @@ module SsoOpenid
       if current_admin.present?
         return true
       else
-        session[:stored_location] = request.path
+        #use fullpath instead of path as fullpath includes the query params that are passed in
+        session[:stored_location] = request.fullpath
         redirect_to sso_openid.auth_path
       end
     end
