@@ -33,8 +33,8 @@ jobs:
           - v3-dependencies-
 
       - run:
-        name: install bundler
-        command: gem install bundler
+          name: install bundler
+          command: gem install bundler
 
       - run:
           name: install dependencies
