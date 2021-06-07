@@ -3,7 +3,7 @@ PATH
   specs:
     sso_openid (0.0.3)
       json-jwt
-      nokogiri (~> 1.10.4)
+      nokogiri (>= 1.10.4, < 1.12.0)
       omniauth (~> 1.9.1)
       omniauth_openid_connect (~> 0.3.0)
       rails (~> 5.0)
@@ -94,11 +94,12 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.3)
     minitest (5.14.2)
     nio4r (2.5.4)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.7)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
@@ -117,6 +118,7 @@ GEM
       validate_url
       webfinger (>= 1.0.1)
     public_suffix (4.0.6)
+    racc (1.5.2)
     rack (2.2.3)
     rack-oauth2 (1.16.0)
       activesupport
