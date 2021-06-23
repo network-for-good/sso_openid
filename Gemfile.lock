@@ -57,7 +57,7 @@ GEM
     aes_key_wrap (1.1.0)
     arel (9.0.0)
     attr_required (1.0.1)
-    bindata (2.4.8)
+    bindata (2.4.10)
     builder (3.2.4)
     capybara (3.32.2)
       addressable
