@@ -3,7 +3,7 @@ PATH
   specs:
     sso_openid (0.0.3)
       json-jwt
-      nokogiri (~> 1.11.0)
+      nokogiri (>= 1.11.4)
       omniauth (~> 1.9.1)
       omniauth_openid_connect (~> 0.3.0)
       rails (~> 5.0)
