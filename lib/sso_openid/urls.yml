@@ -27,6 +27,9 @@ test:
   evo:
     host: "lvh.me:3000"
     fqdn: "http://basic.lvh.me:3000"
+  portal:
+    host: "account.networkforgood-beta.com"
+    fqdn: "https://account.networkforgood-beta.com"
 development:
   portal:
     host: "account.lvh.me:3002"
