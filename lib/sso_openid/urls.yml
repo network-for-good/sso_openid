@@ -29,14 +29,14 @@ test:
     fqdn: "http://basic.n4g.be:3000"
 development:
   portal:
-    host: "account.n4g.be:3002"
-    fqdn: "http://account.n4g.be:3002"
+    host: "account.portal.test"
+    fqdn: "http://account.portal.test"
   dms:
-    host: "dm.n4g.be:3001"
-    fqdn: "http://dev.dm.n4g.be:3001"
+    host: "dm.portal.test"
+    fqdn: "http://dev.dm.dm.test"
   evo:
-    host: "n4g.be:3000"
-    fqdn: "http://basic.n4g.be:3000"
+    host: "n4g.portal.test"
+    fqdn: "http://basic.fp.test"
 demo:
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
