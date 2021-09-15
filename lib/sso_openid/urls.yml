@@ -29,13 +29,13 @@ test:
     fqdn: "http://basic.n4g.be:3000"
 development:
   portal:
-    host: "account.portal.test"
+    host: "portal.test"
     fqdn: "http://account.portal.test"
   dms:
-    host: "dm.portal.test"
+    host: "dm.dm.test"
     fqdn: "http://dev.dm.dm.test"
   evo:
-    host: "n4g.portal.test"
+    host: "fp.test"
     fqdn: "http://basic.fp.test"
 demo:
   sso_openid:
