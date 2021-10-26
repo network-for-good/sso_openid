@@ -8,10 +8,12 @@ module SsoOpenid
       end
     end
 
-    initializer "sso_openid.action_controller" do
-      ActiveSupport.on_load :action_controller do
-        include SsoOpenid::ApplicationHelper
-        helper SsoOpenid::ApplicationHelper
+    initializer "sso_openid.action_controller" do |app|
+      app.reloader.to_prepare do
+        ActiveSupport.on_load :action_controller do
+          include SsoOpenid::ApplicationHelper
+          helper SsoOpenid::ApplicationHelper
+        end
       end
     end
   end
