@@ -8,14 +8,14 @@ class ApplicationController < ActionController::Base
   end
 
   def sso_openid_after_sign_in_path
-    root_path
+    Dummy::Application.routes.url_helpers.root_path
   end
 
   def sso_openid_after_sign_out_path
-    root_path
+    Dummy::Application.routes.url_helpers.root_path
   end
 
   def sso_openid_failure_path
-    root_path
+    Dummy::Application.routes.url_helpers.root_path
   end
 end
