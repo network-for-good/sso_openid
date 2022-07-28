@@ -1,7 +1,7 @@
 defaults:
   auctions:
     host: "auctions.networkforgood-beta.com"
-    fqdn: "https://auctions.networkforgood-beta.com"
+    fqdn: "https://api.auctions.networkforgood-beta.com"
   sso_openid:
     host: "identity-uat.networkforgood.org"
     fqdn: "https://identity-uat.networkforgood.org"
@@ -49,7 +49,7 @@ development:
 demo:
   auctions:
     host: "auctions.networkforgood-demo.com"
-    fqdn: "https://sso.auctions.networkforgood-demo.com"
+    fqdn: "https://api.auctions.networkforgood-demo.com"
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
     fqdn: "https://identity-sandbox.networkforgood.org"
@@ -74,7 +74,7 @@ demo:
 staging:
   auctions:
     host: "auctions.networkforgood-demo.com"
-    fqdn: "https://sso.auctions.networkforgood-demo.com"
+    fqdn: "https://api.auctions.networkforgood-demo.com"
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
     fqdn: "https://identity-sandbox.networkforgood.org"
@@ -99,7 +99,7 @@ staging:
 qa:
   auctions:
     host: "auctions.networkforgood-qa.com"
-    fqdn: "https://sso.auctions.networkforgood-qa.com"
+    fqdn: "https://api.auctions.networkforgood-qa.com"
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
     fqdn: "https://identity-sandbox.networkforgood.org"
@@ -124,7 +124,7 @@ qa:
 production:
   auctions:
     host: "auctions.networkforgood.com"
-    fqdn: "https://sso.auctions.networkforgood.com"
+    fqdn: "https://api.auctions.networkforgood.com"
   sso_openid:
     host: "identity.networkforgood.org"
     fqdn: "https://identity.networkforgood.org"
