@@ -1,4 +1,7 @@
 defaults:
+  auctions:
+    host: "auctions.networkforgood-beta.com"
+    fqdn: "https://api.auctions.networkforgood-beta.com"
   sso_openid:
     host: "identity-uat.networkforgood.org"
     fqdn: "https://identity-uat.networkforgood.org"
@@ -21,6 +24,9 @@ defaults:
     dashboard: "https://account-uat.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account-uat.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 test:
+  auctions:
+    host: "n/a"
+    fqdn: "n/a"
   dms:
     host: "dm.n4g.be:3001"
     fqdn: "http://dev.dm.n4g.be:3001"
@@ -28,6 +34,9 @@ test:
     host: "n4g.be:3000"
     fqdn: "http://basic.n4g.be:3000"
 development:
+  auctions:
+    host: "auctions.test"
+    fqdn: "http://dev.auctions.test"
   portal:
     host: "portal.test"
     fqdn: "http://account.portal.test"
@@ -38,6 +47,9 @@ development:
     host: "fp.test"
     fqdn: "http://basic.fp.test"
 demo:
+  auctions:
+    host: "auctions.networkforgood-demo.com"
+    fqdn: "https://api.auctions.networkforgood-demo.com"
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
     fqdn: "https://identity-sandbox.networkforgood.org"
@@ -60,6 +72,9 @@ demo:
     dashboard: "https://account-sandbox.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account-sandbox.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 staging:
+  auctions:
+    host: "auctions.networkforgood-demo.com"
+    fqdn: "https://api.auctions.networkforgood-demo.com"
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
     fqdn: "https://identity-sandbox.networkforgood.org"
@@ -82,6 +97,9 @@ staging:
     dashboard: "https://account-sandbox.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account-sandbox.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 qa:
+  auctions:
+    host: "auctions.networkforgood-qa.com"
+    fqdn: "https://api.auctions.networkforgood-qa.com"
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
     fqdn: "https://identity-sandbox.networkforgood.org"
@@ -104,6 +122,9 @@ qa:
     dashboard: "https://account-sandbox.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account-sandbox.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 production:
+  auctions:
+    host: "auctions.networkforgood.com"
+    fqdn: "https://api.auctions.networkforgood.com"
   sso_openid:
     host: "identity.networkforgood.org"
     fqdn: "https://identity.networkforgood.org"
