@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 5.0"
-  s.add_dependency "omniauth", "~> 1.9.1"
+  s.add_dependency "omniauth", ">= 1.9.1", "< 2.2.0"
   s.add_dependency "omniauth_openid_connect", "~> 0.3.0"
   s.add_dependency "json-jwt"
   s.add_dependency "nokogiri", ">= 1.11.4"
