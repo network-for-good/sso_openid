@@ -25,8 +25,8 @@ defaults:
     disbursements: "https://account-uat.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
 test:
   auctions:
-    host: "n/a"
-    fqdn: "n/a"
+    host: "auctions.test"
+    fqdn: "http://dev.auctions.test"
   dms:
     host: "dm.n4g.be:3001"
     fqdn: "http://dev.dm.n4g.be:3001"
