@@ -37,6 +37,16 @@ development:
   evo:
     host: "n4g.be:3000"
     fqdn: "http://basic.n4g.be:3000"
+docker:
+  portal:
+    host: "portal:3200"
+    fqdn: "http://portal:3200"
+  dms:
+    host: "dm:3000"
+    fqdn: "http://dm:3000"
+  evo:
+    host: "fp:3100"
+    fqdn: "http://fp:3100"
 demo:
   sso_openid:
     host: "identity-sandbox.networkforgood.org"
