@@ -46,6 +46,16 @@ development:
   evo:
     host: "fp.test"
     fqdn: "http://basic.fp.test"
+docker:
+  portal:
+    host: "portal:3200"
+    fqdn: "http://portal:3200"
+  dms:
+    host: "dm:3000"
+    fqdn: "http://dm:3000"
+  evo:
+    host: "fp:3100"
+    fqdn: "http://fp:3100"
 demo:
   auctions:
     host: "auctions.networkforgood-demo.com"
