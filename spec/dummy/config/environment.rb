@@ -1,5 +1,5 @@
 # Load the Rails application.
-require File.expand_path('../application', __FILE__)
+require_relative "application"
 
 config = YAML::load(ERB.new(IO.read(File.join(Rails.root, 'config', 'api-keys.yml'))).result)
 config_hash = HashWithIndifferentAccess.new(config)
