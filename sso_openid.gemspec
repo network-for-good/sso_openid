@@ -20,11 +20,16 @@ Gem::Specification.new do |s|
   s.add_dependency "omniauth", "~> 1.9.1"
   s.add_dependency "omniauth_openid_connect", "~> 0.3.0"
   s.add_dependency "json-jwt"
-  s.add_dependency "nokogiri", ">= 1.11.4"
+  s.add_dependency "nokogiri", ">= 1.13.10"
+  s.add_dependency "logger"
+  s.add_dependency "bigdecimal"
+  s.add_dependency "drb"
 
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "sqlite3", "~> 1.7"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rspec_junit_formatter"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "capybara"
+  s.add_development_dependency "pry"
+  s.add_development_dependency "pry-byebug"
 end
