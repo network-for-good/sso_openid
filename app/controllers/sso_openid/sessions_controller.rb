@@ -19,7 +19,7 @@ module SsoOpenid
         else
           sso_openid_sign_in(admin)
           flash[:notice] = "You have logged in successfully."
-          redirect_to sso_openid_after_sign_in_path, allow_other_host: true
+          redirect_to sso_openid_after_sign_in_path
         end
       end
     end
@@ -30,7 +30,7 @@ module SsoOpenid
     end
 
     def failure
-      redirect_to sso_openid_failure_path, allow_other_host: true
+      redirect_to sso_openid_failure_path
     end
 
     def setup
