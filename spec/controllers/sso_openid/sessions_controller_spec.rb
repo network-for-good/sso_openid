@@ -26,7 +26,7 @@ describe SsoOpenid::SessionsController, type: :controller do
     it "redirects the user to whatever is returned from the sso_openid_after_sign_out_path method" do
       # the sso_openid_after_sign_out_path method must be defined in the application
       # controller of the containing application
-      application_redirect_path = "/my/applications/redirect/path"
+      application_redirect_path = "https://unknown-host.example.com/my/applications/redirect/path"
       allow(controller).to receive(:sso_openid_after_sign_out_path).and_return(application_redirect_path)
       subject
       expect(response).to redirect_to(application_redirect_path)
