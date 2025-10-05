@@ -26,11 +26,11 @@ module SsoOpenid
 
     def destroy
       sso_openid_sign_out
-      redirect_to sso_openid_after_sign_out_path
+      redirect_to sso_openid_after_sign_out_path, allow_other_host: true
     end
 
     def failure
-      redirect_to sso_openid_failure_path
+      redirect_to sso_openid_failure_path, allow_other_host: true
     end
 
     def setup

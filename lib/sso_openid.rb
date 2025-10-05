@@ -14,16 +14,16 @@ module SsoOpenid
         client_options: {
           port: 443,
           scheme: "https",
-          host: SsoOpenid::Urls.sso_openid.host,
-          identifier: APP_CONFIG[:sso_openid][:client_id],
-          secret: APP_CONFIG[:sso_openid][:client_secret],
+          host: "dev-auth.dev.bonterralabs.io",  # Your custom domain host
+          identifier: "MEWrh8cWedRRMFsyJQZ6HOEfuuiH8ikB",  # Your Client ID
+          secret: "ZzdKZ7uctbp1ABbDHk3d8D1zTgmB-03YWVIhcQUwFtQgFOYV9u-8UXpt7odHvtXZ",  # Your Client Secret
         },
         callback_path: SsoOpenid::Paths.callback_path,
         request_path: SsoOpenid::Paths.auth_path,
         setup_path: SsoOpenid::Paths.setup_path,
         name: :sso_openid,
         discovery: true,
-        issuer: SsoOpenid::Urls.sso_openid.discovery_endpoint,
+        issuer: "https://dev-auth.dev.bonterralabs.io/",  # Your custom domain (with trailing slash)
         setup: true,
         scope: [:openid, :email, :profile, :address],
       }

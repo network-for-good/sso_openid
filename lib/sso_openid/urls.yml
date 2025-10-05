@@ -3,9 +3,9 @@ defaults:
     host: "auctions.networkforgood-beta.com"
     fqdn: "https://api.auctions.networkforgood-beta.com"
   sso_openid:
-    host: "identity-uat.networkforgood.org"
-    fqdn: "https://identity-uat.networkforgood.org"
-    discovery_endpoint: "https://identity-uat.networkforgood.org"
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
   portal:
     host: "account.networkforgood-beta.com"
     fqdn: "https://account.networkforgood-beta.com"
@@ -46,11 +46,15 @@ development:
   evo:
     host: "fp.test"
     fqdn: "http://basic.fp.test"
+  sso_openid:
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
 demo:
   auctions:
     host: "auctions.networkforgood-demo.com"
     fqdn: "https://api.auctions.networkforgood-demo.com"
-  sso_openid:
+  :
     host: "identity-sandbox.networkforgood.org"
     fqdn: "https://identity-sandbox.networkforgood.org"
     discovery_endpoint: "https://identity-sandbox.networkforgood.org"
@@ -76,9 +80,9 @@ staging:
     host: "auctions.networkforgood-demo.com"
     fqdn: "https://api.auctions.networkforgood-demo.com"
   sso_openid:
-    host: "identity-sandbox.networkforgood.org"
-    fqdn: "https://identity-sandbox.networkforgood.org"
-    discovery_endpoint: "https://identity-sandbox.networkforgood.org"
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
   portal:
     host: "account.networkforgood-demo.com"
     fqdn: "https://account.networkforgood-demo.com"
@@ -101,9 +105,9 @@ qa:
     host: "auctions.networkforgood-qa.com"
     fqdn: "https://api.auctions.networkforgood-qa.com"
   sso_openid:
-    host: "identity-sandbox.networkforgood.org"
-    fqdn: "https://identity-sandbox.networkforgood.org"
-    discovery_endpoint: "https://identity-sandbox.networkforgood.org"
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
   portal:
     host: "account.networkforgood-qa.com"
     fqdn: "https://account.networkforgood-qa.com"
@@ -125,7 +129,7 @@ production:
   auctions:
     host: "auctions.networkforgood.com"
     fqdn: "https://api.auctions.networkforgood.com"
-  sso_openid:
+  :
     host: "identity.networkforgood.org"
     fqdn: "https://identity.networkforgood.org"
     discovery_endpoint: "https://identity.networkforgood.org"
@@ -146,3 +150,4 @@ production:
     users_api: "https://users.networkforgood.org"
     dashboard: "https://account.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
+sso_openid
