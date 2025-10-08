@@ -10,20 +10,23 @@ module SsoOpenid
   class Configuration
 
     def self.openid_options
+      # Read configuration from APP_CONFIG (api-keys.yml)
+      sso_config = APP_CONFIG[:sso_openid]
+      
       {
         client_options: {
           port: 443,
           scheme: "https",
-          host: "dev-auth.dev.bonterralabs.io",  # Your custom domain host
-          identifier: "MEWrh8cWedRRMFsyJQZ6HOEfuuiH8ikB",  # Your Client ID
-          secret: "ZzdKZ7uctbp1ABbDHk3d8D1zTgmB-03YWVIhcQUwFtQgFOYV9u-8UXpt7odHvtXZ",  # Your Client Secret
+          host: SsoOpenid::Urls.sso_openid.host,
+          identifier: sso_config[:client_id],
+          secret: sso_config[:client_secret],
         },
         callback_path: SsoOpenid::Paths.callback_path,
         request_path: SsoOpenid::Paths.auth_path,
         setup_path: SsoOpenid::Paths.setup_path,
         name: :sso_openid,
         discovery: true,
-        issuer: "https://dev-auth.dev.bonterralabs.io/",  # Your custom domain (with trailing slash)
+        issuer: SsoOpenid::Urls.sso_openid.fqdn + "/",
         setup: true,
         scope: [:openid, :email, :profile, :address],
       }

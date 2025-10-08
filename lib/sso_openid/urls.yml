@@ -27,6 +27,10 @@ test:
   auctions:
     host: "portal.lvh.me:3004"
     fqdn: "http://portal.lvh.me:3004"
+  sso_openid:
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
   dms:
     host: "dm.n4g.be:3001"
     fqdn: "http://dev.dm.n4g.be:3001"
@@ -54,10 +58,10 @@ demo:
   auctions:
     host: "auctions.networkforgood-demo.com"
     fqdn: "https://api.auctions.networkforgood-demo.com"
-  :
-    host: "identity-sandbox.networkforgood.org"
-    fqdn: "https://identity-sandbox.networkforgood.org"
-    discovery_endpoint: "https://identity-sandbox.networkforgood.org"
+  sso_openid:
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
   portal:
     host: "account.networkforgood-demo.com"
     fqdn: "https://account.networkforgood-demo.com"
@@ -129,10 +133,10 @@ production:
   auctions:
     host: "auctions.networkforgood.com"
     fqdn: "https://api.auctions.networkforgood.com"
-  :
-    host: "identity.networkforgood.org"
-    fqdn: "https://identity.networkforgood.org"
-    discovery_endpoint: "https://identity.networkforgood.org"
+  sso_openid:
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
   portal:
     host: "account.networkforgood.com"
     fqdn: "https://account.networkforgood.com"
@@ -150,4 +154,3 @@ production:
     users_api: "https://users.networkforgood.org"
     dashboard: "https://account.networkforgood.org/Npo/Dashboard.aspx"
     disbursements: "https://account.networkforgood.org/Npo/AccountManagement/OrganizationInfo.aspx"
-sso_openid
