@@ -30,7 +30,7 @@ module SsoOpenid
     end
 
     def failure
-      redirect_to sso_openid_failure_path
+      redirect_to sso_openid_failure_path, allow_other_host: true
     end
 
     def setup

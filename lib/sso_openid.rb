@@ -7,7 +7,22 @@ require "omniauth/openid_connect"
 module SsoOpenid
   autoload :SpecHelpers, 'sso_openid/spec_helpers'
 
+  class << self
+    attr_accessor :configuration
+  end
+
+  def self.configure
+    self.configuration ||= Configuration.new
+    yield(configuration)
+  end
+
   class Configuration
+    attr_accessor :identifier, :secret
+
+    def initialize
+      @identifier = nil
+      @secret = nil
+    end
 
     def self.openid_options
       {
@@ -15,8 +30,8 @@ module SsoOpenid
           port: 443,
           scheme: "https",
           host: SsoOpenid::Urls.sso_openid.host,
-          identifier: APP_CONFIG[:sso_openid][:client_id],
-          secret: APP_CONFIG[:sso_openid][:client_secret],
+          identifier: SsoOpenid.configuration&.identifier || APP_CONFIG[:sso_openid][:client_id],
+          secret: SsoOpenid.configuration&.secret || APP_CONFIG[:sso_openid][:client_secret],
         },
         callback_path: SsoOpenid::Paths.callback_path,
         request_path: SsoOpenid::Paths.auth_path,
