@@ -3,6 +3,7 @@ module SsoOpenid
     include Rails.application.routes.url_helpers
 
     skip_before_action :authenticate_admin!, raise: false
+    skip_before_action :verify_authenticity_token, only: [:create, :setup], raise: false
 
     def create
       omniauth_data = request.env['omniauth.auth']
