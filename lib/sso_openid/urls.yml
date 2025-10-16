@@ -5,7 +5,7 @@ defaults:
   sso_openid:
     host: "dev-auth.dev.bonterralabs.io"
     fqdn: "https://dev-auth.dev.bonterralabs.io"
-    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io/"
   portal:
     host: "account.networkforgood-beta.com"
     fqdn: "https://account.networkforgood-beta.com"
@@ -30,7 +30,7 @@ test:
   sso_openid:
     host: "dev-auth.dev.bonterralabs.io"
     fqdn: "https://dev-auth.dev.bonterralabs.io"
-    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io/"
   dms:
     host: "dm.n4g.be:3001"
     fqdn: "http://dev.dm.n4g.be:3001"
@@ -53,7 +53,7 @@ development:
   sso_openid:
     host: "dev-auth.dev.bonterralabs.io"
     fqdn: "https://dev-auth.dev.bonterralabs.io"
-    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io/"
 demo:
   auctions:
     host: "auctions.networkforgood-demo.com"
@@ -61,7 +61,7 @@ demo:
   sso_openid:
     host: "dev-auth.dev.bonterralabs.io"
     fqdn: "https://dev-auth.dev.bonterralabs.io"
-    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io/"
   portal:
     host: "account.networkforgood-demo.com"
     fqdn: "https://account.networkforgood-demo.com"
@@ -86,7 +86,7 @@ staging:
   sso_openid:
     host: "dev-auth.dev.bonterralabs.io"
     fqdn: "https://dev-auth.dev.bonterralabs.io"
-    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io/"
   portal:
     host: "account.networkforgood-demo.com"
     fqdn: "https://account.networkforgood-demo.com"
@@ -111,7 +111,7 @@ qa:
   sso_openid:
     host: "dev-auth.dev.bonterralabs.io"
     fqdn: "https://dev-auth.dev.bonterralabs.io"
-    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io/"
   portal:
     host: "account.networkforgood-qa.com"
     fqdn: "https://account.networkforgood-qa.com"
@@ -136,7 +136,7 @@ production:
   sso_openid:
     host: "dev-auth.dev.bonterralabs.io"
     fqdn: "https://dev-auth.dev.bonterralabs.io"
-    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io/"
   portal:
     host: "account.networkforgood.com"
     fqdn: "https://account.networkforgood.com"
