@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sso_openid (7.2.4.auth0.uat.1)
+    sso_openid (7.2.4.auth0.uat.2)
       bigdecimal
       drb
       json-jwt

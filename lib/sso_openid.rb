@@ -38,7 +38,7 @@ module SsoOpenid
         setup_path: SsoOpenid::Paths.setup_path,
         name: :sso_openid,
         discovery: true,
-        issuer: SsoOpenid::Urls.sso_openid.discovery_endpoint,
+        issuer: "#{SsoOpenid::Urls.sso_openid.discovery_endpoint}/",
         setup: true,
         scope: [:openid, :email, :profile, :address],
       }
