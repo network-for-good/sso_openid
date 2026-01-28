@@ -188,6 +188,8 @@ describe SsoOpenid::SessionsController, type: :controller do
       allow(request).to receive(:host).and_return('example.com')
       allow(request).to receive(:port).and_return(443)
       allow(Rails.logger).to receive(:info)
+      # Reset configuration before each test
+      SsoOpenid.configuration = nil
     end
 
     it "sets the redirect_uri in omniauth strategy options" do
@@ -223,6 +225,58 @@ describe SsoOpenid::SessionsController, type: :controller do
       it "sets acr_values for pwdReset in omniauth strategy options" do
         get :setup, params: { pwdReset: 'true' }
         expect(omniauth_strategy.options[:acr_values]).to eq('pwdReset:true')
+      end
+    end
+
+    context "with connection_name configured" do
+      let(:configuration) { SsoOpenid::Configuration.new }
+
+      before do
+        configuration.connection_name = 'Username-Password-Authentication'
+        SsoOpenid.configuration = configuration
+      end
+
+      it "sets connection in extra_authorize_params when connection_name is configured" do
+        get :setup
+        expect(omniauth_strategy.options[:extra_authorize_params][:connection]).to eq('Username-Password-Authentication')
+      end
+
+      it "initializes extra_authorize_params hash if it doesn't exist" do
+        omniauth_strategy.options.delete(:extra_authorize_params)
+        get :setup
+        expect(omniauth_strategy.options[:extra_authorize_params]).to be_a(Hash)
+        expect(omniauth_strategy.options[:extra_authorize_params][:connection]).to eq('Username-Password-Authentication')
+      end
+
+      it "works with custom database connection names" do
+        configuration.connection_name = 'production-users-db'
+        get :setup
+        expect(omniauth_strategy.options[:extra_authorize_params][:connection]).to eq('production-users-db')
+      end
+    end
+
+    context "without connection_name configured" do
+      before do
+        SsoOpenid.configuration = nil
+      end
+
+      it "does not set connection in extra_authorize_params when connection_name is not configured" do
+        get :setup
+        expect(omniauth_strategy.options.key?(:extra_authorize_params)).to be_falsey
+      end
+    end
+
+    context "with connection_name set to empty string" do
+      let(:configuration) { SsoOpenid::Configuration.new }
+
+      before do
+        configuration.connection_name = ''
+        SsoOpenid.configuration = configuration
+      end
+
+      it "does not set connection in extra_authorize_params when connection_name is empty" do
+        get :setup
+        expect(omniauth_strategy.options.key?(:extra_authorize_params)).to be_falsey
       end
     end
   end

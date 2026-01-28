@@ -50,6 +50,12 @@ module SsoOpenid
       omniauth_strategy.options[:acr_values] = "activated:#{params[:activated]}" if params[:activated].present?
       omniauth_strategy.options[:acr_values] = "pwdReset:#{params[:pwdReset]}" if params[:pwdReset].present?
 
+      # Set connection parameter for Auth0 if configured
+      if SsoOpenid.configuration&.connection_name.present?
+        omniauth_strategy.options[:extra_authorize_params] ||= {}
+        omniauth_strategy.options[:extra_authorize_params][:connection] = SsoOpenid.configuration&.connection_name
+      end
+
       # All finished!
       render plain: 'Omniauth setup phase.', status: 200
     end

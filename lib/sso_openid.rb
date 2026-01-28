@@ -17,11 +17,12 @@ module SsoOpenid
   end
 
   class Configuration
-    attr_accessor :identifier, :secret
+    attr_accessor :identifier, :secret, :connection_name
 
     def initialize
       @identifier = nil
       @secret = nil
+      @connection_name = nil
     end
 
     def self.openid_options
