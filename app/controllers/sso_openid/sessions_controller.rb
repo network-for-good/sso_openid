@@ -90,10 +90,12 @@ module SsoOpenid
       ::ApplicationController.instance_methods(false).include?(method_name)
     end
 
+    # old discovery_endpoint values logic as below
+    # SsoOpenid::Urls.sso_openid.discovery_endpoint
     def auth0_logout_url
       # Auth0 logout endpoint with returnTo parameter to redirect back to the login screen
       login_url = sso_openid.auth_url(**request_params)
-      "#{SsoOpenid::Urls.sso_openid.discovery_endpoint}/v2/logout?client_id=#{SsoOpenid.configuration.identifier}&returnTo=#{CGI.escape(login_url)}"
+      "#{SsoOpenid.configuration&.discovery_endpoint}/v2/logout?client_id=#{SsoOpenid.configuration.identifier}&returnTo=#{CGI.escape(login_url)}"
     end
 
     def request_params

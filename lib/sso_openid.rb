@@ -17,20 +17,25 @@ module SsoOpenid
   end
 
   class Configuration
-    attr_accessor :identifier, :secret, :connection_name
+    attr_accessor :identifier, :secret, :connection_name, :host, :discovery_endpoint
 
     def initialize
       @identifier = nil
       @secret = nil
       @connection_name = nil
+      @host = nil
+      @discovery_endpoint = nil
     end
 
+    # old host and discovery_endpoint values logic as below
+    # SsoOpenid::Urls.sso_openid.host
+    # SsoOpenid::Urls.sso_openid.discovery_endpoint
     def self.openid_options
       {
         client_options: {
           port: 443,
           scheme: "https",
-          host: SsoOpenid::Urls.sso_openid.host,
+          host: SsoOpenid.configuration&.host,
           identifier: SsoOpenid.configuration&.identifier,
           secret: SsoOpenid.configuration&.secret,
         },
@@ -39,7 +44,7 @@ module SsoOpenid
         setup_path: SsoOpenid::Paths.setup_path,
         name: :sso_openid,
         discovery: true,
-        issuer: "#{SsoOpenid::Urls.sso_openid.discovery_endpoint}/",
+        issuer: "#{SsoOpenid.configuration&.discovery_endpoint}/",
         setup: true,
         scope: [:openid, :email, :profile, :address],
       }

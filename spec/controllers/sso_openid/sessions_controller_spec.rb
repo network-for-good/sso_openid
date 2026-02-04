@@ -134,10 +134,13 @@ describe SsoOpenid::SessionsController, type: :controller do
     end
 
     context "when host app doesn't define the method" do
+      let(:configuration) { SsoOpenid::Configuration.new }
+
       before do
+        configuration.discovery_endpoint = 'https://auth.example.com'
+        configuration.identifier = 'client-id-123'
+        SsoOpenid.configuration = configuration
         allow(controller).to receive(:host_app_defines_method?).with(:sso_openid_after_sign_out_path).and_return(false)
-        allow(SsoOpenid::Urls).to receive_message_chain(:sso_openid, :discovery_endpoint).and_return('https://auth.example.com')
-        allow(SsoOpenid.configuration).to receive(:identifier).and_return('client-id-123')
         allow(controller).to receive(:sso_openid).and_return(double(auth_url: 'https://example.com/auth'))
         allow(controller).to receive(:request).and_return(double(host: 'example.com', port: 443, subdomain: 'www'))
       end
@@ -161,10 +164,13 @@ describe SsoOpenid::SessionsController, type: :controller do
     end
 
     context "when host app doesn't define the method" do
+      let(:configuration) { SsoOpenid::Configuration.new }
+
       before do
+        configuration.discovery_endpoint = 'https://auth.example.com'
+        configuration.identifier = 'client-id-123'
+        SsoOpenid.configuration = configuration
         allow(controller).to receive(:host_app_defines_method?).with(:sso_openid_failure_path).and_return(false)
-        allow(SsoOpenid::Urls).to receive_message_chain(:sso_openid, :discovery_endpoint).and_return('https://auth.example.com')
-        allow(SsoOpenid.configuration).to receive(:identifier).and_return('client-id-123')
         allow(controller).to receive(:sso_openid).and_return(double(auth_url: 'https://example.com/auth'))
         allow(controller).to receive(:request).and_return(double(host: 'example.com', port: 443, subdomain: 'www'))
       end
