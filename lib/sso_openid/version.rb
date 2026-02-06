@@ -1,3 +1,3 @@
 module SsoOpenid
-  VERSION = "7.2.4.auth0.uat.3"
+  VERSION = "7.3.0"
 end
