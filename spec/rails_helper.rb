@@ -1,8 +1,12 @@
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
+require 'webmock/rspec'
 
 Rails.backtrace_cleaner.remove_silencers!
+
+# Configure WebMock to allow localhost connections but stub external ones
+WebMock.disable_net_connect!(allow_localhost: true)
 
 #
 # Load support files
