@@ -6,6 +6,7 @@ module SsoOpenid
 
     skip_before_action :authenticate_admin!, raise: false
     skip_before_action :verify_authenticity_token, only: %i[create setup], raise: false
+    skip_before_action :ensure_secondary_validation, only: [:setup], raise: false
 
     def create
       omniauth_data = request.env['omniauth.auth']
