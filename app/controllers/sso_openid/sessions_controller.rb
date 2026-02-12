@@ -6,6 +6,9 @@ module SsoOpenid
 
     skip_before_action :authenticate_admin!, raise: false
     skip_before_action :verify_authenticity_token, only: %i[create setup], raise: false
+    # (NFG-2884) Skip ensure_secondary_validation if it exists (only in donor_management app)
+    # This allows the setup method to complete without being redirected for MFA
+    skip_before_action :ensure_secondary_validation, only: [:setup], raise: false
 
     def create
       omniauth_data = request.env['omniauth.auth']
