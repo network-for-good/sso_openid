@@ -13,3 +13,6 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+# Pinned to exact version to correct a version-selection bug (must stay on the 5.2.x maintenance branch).
+gem "activerecord", "5.2.8.1"
+
