@@ -2,6 +2,8 @@ require "sso_openid/engine"
 require "sso_openid/middleware"
 require "sso_openid/paths"
 require "sso_openid/urls"
+require "sso_openid/auth0_jwt_verifier"
+require "sso_openid/bearer_token_authentication"
 require "omniauth/openid_connect"
 
 module SsoOpenid
@@ -17,7 +19,8 @@ module SsoOpenid
   end
 
   class Configuration
-    attr_accessor :identifier, :secret, :connection_name, :host, :discovery_endpoint
+    attr_accessor :identifier, :secret, :connection_name, :host, :discovery_endpoint,
+                  :jwt_audience, :jwt_issuers
 
     def initialize
       @identifier = nil
@@ -25,6 +28,8 @@ module SsoOpenid
       @connection_name = nil
       @host = nil
       @discovery_endpoint = nil
+      @jwt_audience = nil
+      @jwt_issuers = nil
     end
 
     # old host and discovery_endpoint values logic as below
