@@ -1,5 +1,7 @@
 require "json/jwt"
-require "faraday"
+require "net/http"
+require "uri"
+require "json"
 
 module SsoOpenid
   # Verifies Auth0 (bonterra-auth) RS256 JWTs the way bonterra-api-gateway does
@@ -20,6 +22,10 @@ module SsoOpenid
   #   - audience : `jwt_audience` if set, else `host`.
   class Auth0JwtVerifier
     class VerificationError < StandardError; end
+    # Raised when the token is not an Auth0 JWT for a known issuer (malformed or
+    # unknown issuer). Signals the bearer auth concern to fall back to the opaque
+    # token path rather than rejecting the request outright.
+    class NotAnAuth0JwtError < VerificationError; end
 
     JWKS_TTL_SECONDS  = 600
     DISCOVERY_TIMEOUT = 5
@@ -76,7 +82,7 @@ module SsoOpenid
     def verify(token)
       unverified = unverified_jwt(token)
       issuer = unverified[:iss].to_s
-      raise VerificationError, "Unknown issuer: #{issuer.inspect}" unless @issuers.include?(issuer)
+      raise NotAnAuth0JwtError, "Unknown issuer: #{issuer.inspect}" unless @issuers.include?(issuer)
       raise VerificationError, "JWT audience is not configured" if @audience.empty?
 
       kid = unverified.header[:kid]
@@ -94,13 +100,13 @@ module SsoOpenid
     def unverified_jwt(token)
       JSON::JWT.decode(token, :skip_verification)
     rescue JSON::JWT::InvalidFormat => e
-      raise VerificationError, e.message
+      raise NotAnAuth0JwtError, e.message
     end
 
     def verify_claims!(jwt, issuer)
       raise VerificationError, "Invalid issuer" unless jwt[:iss].to_s == issuer
       raise VerificationError, "Invalid audience" unless Array(jwt[:aud]).map(&:to_s).include?(@audience)
-      raise VerificationError, "Token expired" if jwt[:exp] && jwt[:exp].to_i < Time.now.to_i
+      raise VerificationError, "Token expired" if jwt[:exp] && jwt[:exp].to_i <= Time.now.to_i
     end
 
     def jwk_for(issuer, kid)
@@ -141,11 +147,22 @@ module SsoOpenid
     end
 
     def http_get_json(url)
-      response = Faraday.get(url) { |req| req.options.timeout = DISCOVERY_TIMEOUT }
-      raise VerificationError, "GET #{url} returned #{response.status}" unless response.status == 200
+      uri = URI.parse(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == "https"
+      http.open_timeout = DISCOVERY_TIMEOUT
+      http.read_timeout = DISCOVERY_TIMEOUT
 
-      JSON.parse(response.body)
-    rescue Faraday::Error, JSON::ParserError => e
+      response = http.get(uri.request_uri)
+      raise VerificationError, "GET #{url} returned #{response.code}" unless response.code == "200"
+
+      body = response.body
+      raise VerificationError, "GET #{url} returned empty body" if body.nil? || body.empty?
+
+      JSON.parse(body)
+    rescue URI::InvalidURIError, Net::OpenTimeout, Net::ReadTimeout, SocketError, SystemCallError => e
+      raise VerificationError, "Failed to fetch #{url}: #{e.message}"
+    rescue JSON::ParserError => e
       raise VerificationError, "Failed to fetch #{url}: #{e.message}"
     end
 

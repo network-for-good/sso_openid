@@ -33,7 +33,8 @@ module SsoOpenid
       return super if token.blank?
 
       payload = verify_auth0_jwt(token)
-      # Not a valid Auth0 JWT — defer to the opaque path (existing 401 handling).
+      # Token is not an Auth0 JWT for a known issuer — defer to the opaque path.
+      # Other VerificationErrors (expired, bad signature, wrong audience) propagate.
       return super if payload.nil?
 
       @current_token = token
@@ -43,7 +44,7 @@ module SsoOpenid
 
     def verify_auth0_jwt(token)
       SsoOpenid::Auth0JwtVerifier.verify(token)
-    rescue SsoOpenid::Auth0JwtVerifier::VerificationError
+    rescue SsoOpenid::Auth0JwtVerifier::NotAnAuth0JwtError
       nil
     end
 
