@@ -17,8 +17,9 @@ module SsoOpenid
   #      and expiry.
   #
   # Config is read from `SsoOpenid.configuration`:
-  #   - issuers  : `jwt_issuers` if set, else derived from `discovery_endpoint`
-  #                (with and without trailing slash, matching Auth0's `iss`).
+  #   - issuers  : `jwt_issuers` if explicitly set, else ALLOWED_ISSUERS (every
+  #                Bonterra Auth0 tenant, with and without trailing slash,
+  #                matching Auth0's `iss`).
   #   - audience : `jwt_audience` if set, else `host`.
   class Auth0JwtVerifier
     class VerificationError < StandardError; end
@@ -29,6 +30,19 @@ module SsoOpenid
 
     JWKS_TTL_SECONDS  = 600
     DISCOVERY_TIMEOUT = 5
+
+    # The Bonterra Auth0 tenants that mint M2M tokens the gateway may forward
+    # to any consumer (AUTHZ-ITD-008). Issuers are not consumer- or
+    # environment-specific — the gateway can forward a token from any tenant
+    # to any downstream service — so this is a fixed constant rather than
+    # per-consumer config (NFG-4177). Update here when a tenant is added or
+    # retired.
+    ALLOWED_ISSUERS = [
+      "https://auth.bonterra.network",
+      "https://auth-staging.bonterra.network",
+      "https://qa-auth.dev.bonterralabs.io",
+      "https://dev-auth.dev.bonterralabs.io"
+    ].freeze
 
     class << self
       def default
@@ -53,14 +67,13 @@ module SsoOpenid
 
       def configured_issuers(config)
         explicit = Array(config.jwt_issuers).map(&:to_s).reject(&:empty?)
-        return explicit if explicit.any?
-
-        discovery = config.discovery_endpoint.to_s
-        return [] if discovery.empty?
+        endpoints = explicit.any? ? explicit : ALLOWED_ISSUERS
 
         # Auth0's `iss` claim carries a trailing slash. Accept both forms defensively.
-        base = discovery.delete_suffix("/")
-        ["#{base}/", base]
+        endpoints.flat_map do |issuer|
+          base = issuer.delete_suffix("/")
+          ["#{base}/", base]
+        end.uniq
       end
 
       def configured_audience(config)
