@@ -3,9 +3,9 @@ defaults:
     host: "auctions.networkforgood-beta.com"
     fqdn: "https://api.auctions.networkforgood-beta.com"
   sso_openid:
-    host: "identity-uat.networkforgood.org"
-    fqdn: "https://identity-uat.networkforgood.org"
-    discovery_endpoint: "https://identity-uat.networkforgood.org"
+    host: "dev-auth.dev.bonterralabs.io"
+    fqdn: "https://dev-auth.dev.bonterralabs.io"
+    discovery_endpoint: "https://dev-auth.dev.bonterralabs.io"
   portal:
     host: "account.networkforgood-beta.com"
     fqdn: "https://account.networkforgood-beta.com"
