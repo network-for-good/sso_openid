@@ -125,18 +125,41 @@ describe SsoOpenid::Auth0JwtVerifier do
   describe ".from_config" do
     after { SsoOpenid.configuration = nil }
 
-    it "derives issuers from discovery_endpoint when jwt_issuers is unset" do
+    it "defaults issuers to every tenant in ALLOWED_ISSUERS when jwt_issuers is unset" do
       SsoOpenid.configure do |config|
         config.discovery_endpoint = "https://bonterra-auth.example.com"
         config.host = "https://dm.networkforgood.com"
       end
 
       instance = described_class.from_config
-      expect(instance.issuers).to contain_exactly(
-        "https://bonterra-auth.example.com/",
-        "https://bonterra-auth.example.com",
+      expect(instance.issuers).to match_array(
+        described_class::ALLOWED_ISSUERS.flat_map { |i| ["#{i}/", i] },
       )
       expect(instance.audience).to eq("https://dm.networkforgood.com")
+    end
+
+    it "accepts a token from any tenant in ALLOWED_ISSUERS" do
+      SsoOpenid.configure do |config|
+        config.host = audience
+      end
+      instance = described_class.from_config
+
+      described_class::ALLOWED_ISSUERS.each do |allowed_issuer|
+        stub_request(:get, "#{allowed_issuer}/.well-known/openid-configuration")
+          .to_return(
+            status: 200,
+            body: { issuer: allowed_issuer, jwks_uri: "#{allowed_issuer}/.well-known/jwks.json" }.to_json,
+            headers: { "Content-Type" => "application/json" },
+          )
+        stub_request(:get, "#{allowed_issuer}/.well-known/jwks.json")
+          .to_return(status: 200, body: jwks_body, headers: { "Content-Type" => "application/json" })
+
+        jwt = JSON::JWT.new(iss: "#{allowed_issuer}/", aud: audience, exp: 1.hour.from_now.to_i)
+        jwt.kid = kid
+        token = jwt.sign(rsa_key, :RS256).to_s
+
+        expect { instance.verify(token) }.not_to raise_error
+      end
     end
 
     it "prefers explicit jwt_issuers and jwt_audience when set" do
@@ -148,7 +171,10 @@ describe SsoOpenid::Auth0JwtVerifier do
       end
 
       instance = described_class.from_config
-      expect(instance.issuers).to eq(["https://custom-issuer.example.com/"])
+      expect(instance.issuers).to contain_exactly(
+        "https://custom-issuer.example.com/",
+        "https://custom-issuer.example.com",
+      )
       expect(instance.audience).to eq("custom-audience")
     end
   end
