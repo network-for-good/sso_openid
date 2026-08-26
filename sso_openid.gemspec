@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "bigdecimal"
   s.add_dependency "drb"
 
-  s.add_development_dependency "sqlite3", "~> 1.6"
+  s.add_development_dependency "sqlite3", "~> 2.9"
   s.add_development_dependency "rspec-rails", "~> 6.1"
   s.add_development_dependency "rspec_junit_formatter"
   s.add_development_dependency "database_cleaner"
