@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Build and publish sso_openid to the network-for-good GitHub Packages registry.
+#
+# Usage: bin/publish_gem
+#
+# Invoked automatically by the publish-gem workflow on merges to main that
+# bump the version (see README's CI and Releasing section). Running it
+# locally is a break-glass fallback, not the normal release path.
+#
+# Requires a `:github` entry in ~/.gem/credentials with a GitHub personal
+# access token (or, in CI, the workflow's own GITHUB_TOKEN) that has the
+# `write:packages` scope:
+#   :github: Bearer <token>
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+GEM_HOST="https://rubygems.pkg.github.com/network-for-good"
+VERSION="$(ruby -r ./lib/sso_openid/version -e 'puts SsoOpenid::VERSION')"
+GEM_FILE="pkg/sso_openid-${VERSION}.gem"
+
+if ! grep -q '^:github:' "${HOME}/.gem/credentials" 2>/dev/null; then
+  echo "ERROR: no :github key found in ~/.gem/credentials" >&2
+  echo "Add a line like ':github: Bearer <token>' (token needs write:packages scope)." >&2
+  exit 1
+fi
+
+mkdir -p pkg
+echo "Building sso_openid ${VERSION}..."
+gem build sso_openid.gemspec -o "${GEM_FILE}"
+
+echo "Pushing ${GEM_FILE} to ${GEM_HOST}..."
+gem push --key github --host "${GEM_HOST}" "${GEM_FILE}"
