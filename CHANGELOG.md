@@ -3,6 +3,21 @@
 All notable changes to sso_openid are documented here, one entry per release. Entry format
 follows `specs/001-release-security-fix/contracts/release-changelog-entry.md`.
 
+## [v7.3.4] - 2026-10-26
+
+### Security
+- NFG-4485: opt-in `SsoOpenid.configuration.max_auth_age` (seconds or an ActiveSupport::Duration).
+  When set, `/authorize` is sent `max_age`, and the callback rejects an ID token whose `auth_time`
+  is missing or older than `max_auth_age` (plus 60s of clock-skew leeway), sending the user through
+  Auth0 logout back to the login screen so credentials are required. Default `nil`: no behavior
+  change for apps that do not set it. See
+  https://auth0.com/docs/authenticate/login/max-age-reauthentication
+
+### Changed
+- `SpecHelpers#sso_openid_omniauth_stub_for` now mints an unsigned JWT `id_token` carrying
+  `auth_time` (new optional `auth_time:` keyword, default now) instead of the literal string
+  `'asdf1234'`, so host apps that enable `max_auth_age` can still sign in under test.
+
 ## [v7.3.2] - 2026-08-26
 
 ### Security
