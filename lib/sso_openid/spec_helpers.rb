@@ -1,6 +1,8 @@
 module SsoOpenid
   module SpecHelpers
-    def sso_openid_omniauth_stub_for(admin)
+    # `auth_time` lets host apps that set SsoOpenid.configuration.max_auth_age keep signing in
+    # under test; the default is "just now".
+    def sso_openid_omniauth_stub_for(admin, auth_time: Time.now.to_i)
       OmniAuth.config.test_mode = true
 
       OmniAuth.config.mock_auth[:sso_openid] = OmniAuth::AuthHash.new({
@@ -18,7 +20,7 @@ module SsoOpenid
           urls: nil
         },
         credentials: {
-          id_token: 'asdf1234',
+          id_token: JSON::JWT.new(sub: '379bbf97-d3d9-4206-97a8-c24421b6f4fa', auth_time: auth_time).to_s,
           token: 'qwer5678',
           refresh_token: nil,
           expires_in: 1800,

@@ -12,6 +12,8 @@ module SsoOpenid
 
     def create
       omniauth_data = request.env['omniauth.auth']
+      return reauthentication_required unless auth_fresh?(omniauth_data)
+
       admin = Admin.from_omniauth(omniauth_data, request.subdomain, request.ip)
 
       return failure if admin.nil?
@@ -59,11 +61,40 @@ module SsoOpenid
         omniauth_strategy.options[:extra_authorize_params][:connection] = SsoOpenid.configuration&.connection_name
       end
 
+      # (NFG-4485) Ask Auth0 to re-authenticate anyone whose last active login is older than
+      # max_auth_age, instead of silently reusing its persistent session cookie. The strategy's
+      # `max_age` option is not sent by omniauth_openid_connect 0.3.5, so it goes in as an
+      # extra authorize param.
+      if max_auth_age
+        omniauth_strategy.options[:extra_authorize_params] ||= {}
+        omniauth_strategy.options[:extra_authorize_params][:max_age] = max_auth_age
+      end
+
       # All finished!
       render plain: 'Omniauth setup phase.', status: 200
     end
 
     private
+
+    def max_auth_age
+      SsoOpenid.configuration&.max_auth_age.presence&.to_i
+    end
+
+    # Auth0 only re-authenticates when asked, and does not enforce `max_age` on the way back,
+    # so the callback has to check `auth_time` itself. Fails closed: a missing or unreadable
+    # claim counts as stale.
+    def auth_fresh?(omniauth_data)
+      return true unless max_auth_age
+
+      SsoOpenid::AuthFreshness.fresh?(omniauth_data&.credentials&.id_token, max_auth_age)
+    end
+
+    # Ends the Auth0 session and returns to the login screen, which forces a credential prompt.
+    # Deliberately not `failure`: host apps point that at an error page.
+    def reauthentication_required
+      Rails.logger.info 'sso_openid: auth_time older than max_auth_age, forcing re-authentication'
+      redirect_to auth0_logout_url, allow_other_host: true
+    end
 
     def admin_access_restricted?(admin)
       admin.respond_to?(:restrict_access?) && admin.restrict_access?

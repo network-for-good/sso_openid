@@ -20,6 +20,16 @@ This gem provides a wrapper around omniauth and omniauth-openid-connect for hand
 4. Add a method called `sso_openid_failure_path`. This is the path to where the user will be redirected upon any failure.
 5. Add `before_filter authenticate_admin!`. Be sure to exclude this filter where necessary, such as in controller that handle the display of error messages to non-logged in users.
 
+## Forcing periodic re-authentication (`max_auth_age`)
+Auth0 keeps its own persistent session cookie and silently re-authenticates users whose app session has
+expired. To require a credential prompt once a login is older than N seconds, set in the host app's
+initializer:
+
+    SsoOpenid.configure { |config| config.max_auth_age = 12.hours }
+
+The gem then sends `max_age` to `/authorize` and checks the ID token's `auth_time` on the callback. Off
+by default. See https://auth0.com/docs/authenticate/login/max-age-reauthentication
+
 ## Methods this gem provides
 * `#authenticate_admin!` should run before each request to verify that a logged in admin exists. Otherwise, it will redirect to the auth path.
 * `#current_admin` returns the logged in admin.
