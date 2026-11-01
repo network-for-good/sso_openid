@@ -96,6 +96,97 @@ describe SsoOpenid::SessionsController, type: :controller do
     end
   end
 
+  describe "max_auth_age (NFG-4485)" do
+    let(:max_auth_age) { 12.hours }
+
+    around do |example|
+      SsoOpenid.configure { |c| c.max_auth_age = max_auth_age }
+      example.run
+    ensure
+      SsoOpenid.configure { |c| c.max_auth_age = nil }
+    end
+
+    describe "#setup" do
+      let(:strategy) { double('strategy', options: { client_options: {} }) }
+
+      before do
+        allow(request).to receive(:env).and_return({ 'omniauth.strategy' => strategy })
+        allow(controller).to receive(:sso_openid).and_return(double(callback_url: 'https://app.test/callback'))
+      end
+
+      it "sends max_age as an extra authorize param, in seconds" do
+        get :setup
+        expect(strategy.options[:extra_authorize_params][:max_age]).to eq(43_200)
+      end
+
+      context "when max_auth_age is not configured" do
+        let(:max_auth_age) { nil }
+
+        it "does not send max_age" do
+          get :setup
+          expect(strategy.options[:extra_authorize_params].to_h).not_to have_key(:max_age)
+        end
+      end
+    end
+
+    describe "#create" do
+      let(:admin) { double('Admin', uid: 'abc-123', id: 1) }
+      let(:auth_time) { Time.now.to_i - 60 }
+      let(:omniauth_data) do
+        OmniAuth::AuthHash.new(credentials: { id_token: JSON::JWT.new(auth_time: auth_time).to_s })
+      end
+
+      before do
+        allow(request).to receive(:subdomain).and_return('test')
+        allow(request).to receive(:ip).and_return('127.0.0.1')
+        allow(request).to receive(:env).and_return({ 'omniauth.auth' => omniauth_data })
+        allow(Admin).to receive(:from_omniauth).and_return(admin)
+        allow(controller).to receive(:sso_openid).and_return(double(auth_url: 'https://app.test/auth'))
+        allow(controller).to receive(:sso_openid_after_sign_in_path).and_return('/home')
+        allow(controller).to receive(:sso_openid_sign_in)
+      end
+
+      it "signs in when the login is fresh" do
+        expect(controller).to receive(:sso_openid_sign_in).with(admin)
+        expect(controller).to receive(:redirect_to).with('/home')
+        post :create
+      end
+
+      context "when auth_time is older than max_auth_age" do
+        let(:auth_time) { Time.now.to_i - 19.hours.to_i }
+
+        it "does not sign in, and sends the user to Auth0 logout then the login screen" do
+          expect(controller).not_to receive(:sso_openid_sign_in)
+          expect(Admin).not_to receive(:from_omniauth)
+          post :create
+          expect(response.location).to include('/v2/logout')
+          expect(response.location).to include(CGI.escape('https://app.test/auth'))
+        end
+      end
+
+      context "when the id_token has no auth_time" do
+        let(:omniauth_data) { OmniAuth::AuthHash.new(credentials: { id_token: JSON::JWT.new(sub: 'x').to_s }) }
+
+        it "does not sign in" do
+          expect(controller).not_to receive(:sso_openid_sign_in)
+          post :create
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+
+      context "when max_auth_age is not configured" do
+        let(:max_auth_age) { nil }
+        let(:auth_time) { Time.now.to_i - 70.hours.to_i }
+
+        it "does not check auth_time" do
+          expect(controller).to receive(:sso_openid_sign_in).with(admin)
+          allow(controller).to receive(:redirect_to)
+          post :create
+        end
+      end
+    end
+  end
+
   describe "#destroy" do
     before do
       session[:admin_uid] = 'abc-123'

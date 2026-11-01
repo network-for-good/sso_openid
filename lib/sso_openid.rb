@@ -3,6 +3,7 @@ require "sso_openid/middleware"
 require "sso_openid/paths"
 require "sso_openid/urls"
 require "sso_openid/auth0_jwt_verifier"
+require "sso_openid/auth_freshness"
 require "sso_openid/bearer_token_authentication"
 require "omniauth/openid_connect"
 
@@ -20,7 +21,7 @@ module SsoOpenid
 
   class Configuration
     attr_accessor :identifier, :secret, :connection_name, :host, :discovery_endpoint,
-                  :jwt_audience, :jwt_issuers
+                  :jwt_audience, :jwt_issuers, :max_auth_age
 
     def initialize
       @identifier = nil
@@ -30,6 +31,10 @@ module SsoOpenid
       @discovery_endpoint = nil
       @jwt_audience = nil
       @jwt_issuers = nil
+      # (NFG-4485) Maximum age, in seconds (an ActiveSupport::Duration works too), of the user's
+      # last *active* login at Auth0. nil (default) disables the check. When set, /authorize is
+      # sent `max_age` and the callback rejects an ID token whose `auth_time` is older.
+      @max_auth_age = nil
     end
 
     # old host and discovery_endpoint values logic as below

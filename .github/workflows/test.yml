@@ -1,0 +1,51 @@
+name: Test
+
+# Runs the gem's RSpec suite on every PR targeting main, so a failing test
+# blocks merge instead of only being caught by CircleCI after the fact.
+#
+# No services are provisioned here: spec/dummy/config/database.yml is
+# sqlite3-only (CircleCI's job doesn't start a database container either,
+# and ActiveRecord creates the sqlite file on first connection since
+# spec/dummy/db/schema.rb defines no tables), and this gem's suite has no
+# js: true specs that would need a browser driver.
+#
+# bundler-cache: true runs `bundle install` without any GitHub Packages
+# credentials. That's intentional, not an oversight: unlike some sibling
+# NFG gems, sso_openid's Gemfile/gemspec only pulls dependencies from
+# rubygems.org (confirmed via Gemfile.lock, which lists no
+# rubygems.pkg.github.com remote), so there is nothing here for a
+# BUNDLE_RUBYGEMS__PKG__GITHUB__COM secret to resolve.
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  RAILS_ENV: test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.2'
+          bundler-cache: true
+
+      - name: Run test suite
+        run: |
+          mkdir -p tmp/test-results
+          bundle exec rspec --format progress \
+                             --format RspecJunitFormatter \
+                             --out tmp/test-results/rspec.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rspec-results
+          path: tmp/test-results
