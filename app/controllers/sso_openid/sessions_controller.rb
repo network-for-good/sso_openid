@@ -7,8 +7,20 @@ module SsoOpenid
     skip_before_action :authenticate_admin!, raise: false
     skip_before_action :verify_authenticity_token, only: %i[create setup], raise: false
     # (NFG-2884) Skip ensure_secondary_validation if it exists (only in donor_management app)
-    # This allows the setup method to complete without being redirected for MFA
-    skip_before_action :ensure_secondary_validation, only: [:setup], raise: false
+    # This allows the setup method to complete without being redirected for MFA. `new` is the
+    # page that starts a login, so it must not be gated on MFA either (NFG-3714).
+    skip_before_action :ensure_secondary_validation, only: %i[new setup], raise: false
+
+    # (NFG-3714) omniauth 2 only runs the request phase on POST (its fix for CVE-2015-9284, login
+    # CSRF). Every host app starts a login with a GET (`/login`, `/sidekiq_web`, emailed login
+    # URLs, cross-app links, `authenticate_admin!`), and the strategy now lets those fall through
+    # to this route. It renders a self-submitting form that POSTs to the same path with a Rails
+    # authenticity token, which omniauth-rails_csrf_protection verifies before the redirect to
+    # Auth0. The query string (login_hint, activated, pwdReset) is carried over unchanged.
+    def new
+      @sso_openid_request_url = omniauth_request_url
+      render :new, layout: false
+    end
 
     def create
       omniauth_data = request.env['omniauth.auth']
@@ -134,6 +146,12 @@ module SsoOpenid
 
     def request_params
       { host: request.host, port: request.port, subdomain: request.subdomain }
+    end
+
+    # Path only, never a full URL, so the form cannot be turned into an open redirect.
+    def omniauth_request_url
+      path = sso_openid.auth_path
+      request.query_string.present? ? "#{path}?#{request.query_string}" : path
     end
 
     def omniauth_strategy
