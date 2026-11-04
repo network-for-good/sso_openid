@@ -3,6 +3,32 @@
 All notable changes to sso_openid are documented here, one entry per release. Entry format
 follows `specs/001-release-security-fix/contracts/release-changelog-entry.md`.
 
+## [v7.4.0] - 2026-11-03
+
+### Security
+- NFG-3714: upgrade `omniauth` 1.9.2 to 2.x, which fixes CVE-2015-9284 (login CSRF: a third-party
+  page could start the OmniAuth request phase for a victim). omniauth 2 only runs the request phase
+  on a POST, and the new `omniauth-rails_csrf_protection` dependency verifies the Rails authenticity
+  token on that POST. `omniauth_openid_connect` moves 0.3.5 to 0.6.1 to allow omniauth 2
+  (`openid_connect` stays on 1.x).
+
+### Changed
+- A GET to the auth path (`/admin/auth/sso-openid`) no longer redirects straight to Auth0. It now
+  renders a standalone, self-submitting page (`SessionsController#new`) that POSTs to the same path
+  with an authenticity token; the strategy then redirects to Auth0 as before. Every existing GET
+  entry point in host apps (`/login`, `/sidekiq_web` redirects, emailed login URLs, cross-app links,
+  `authenticate_admin!`) keeps working without changes. Query params such as `login_hint`,
+  `activated` and `pwdReset` are carried over.
+- A POST without a valid token fails the request phase and lands on `/auth/failure`, i.e. the host
+  app's `sso_openid_failure_path`.
+
+### Host app requirements
+- `protect_from_forgery` must be active on `ApplicationController` (the Rails default); the token on
+  the self-submitting form is a regular Rails per-form CSRF token.
+- omniauth 2.3 logs a warning on each request phase when it builds URLs from the request host.
+  Silence it in the host app with `OmniAuth.config.allowed_hosts = [...]` or
+  `OmniAuth.config.full_host`.
+
 ## [v7.3.4] - 2026-10-26
 
 ### Security

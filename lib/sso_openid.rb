@@ -6,6 +6,10 @@ require "sso_openid/auth0_jwt_verifier"
 require "sso_openid/auth_freshness"
 require "sso_openid/bearer_token_authentication"
 require "omniauth/openid_connect"
+# Registers OmniAuth.config.request_validation_phase so the POST that starts a login is checked
+# against the Rails authenticity token (NFG-3714). Bundler.require in a host app does not load
+# transitive gems, so the engine has to require it itself.
+require "omniauth/rails_csrf_protection"
 
 module SsoOpenid
   autoload :SpecHelpers, 'sso_openid/spec_helpers'

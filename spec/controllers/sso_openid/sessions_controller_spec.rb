@@ -5,6 +5,25 @@ describe SsoOpenid::SessionsController, type: :controller do
     @routes = SsoOpenid::Engine.routes
   end
 
+  describe "#new (NFG-3714)" do
+    render_views
+
+    it "renders the self-submitting form as a standalone page" do
+      get :new
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to start_with("<!DOCTYPE html>")
+      expect(response.body).to include(%(id="sso-openid-request-form"))
+      expect(response.body).to include(%(action="#{SsoOpenid::Paths.auth_path}"))
+    end
+
+    it "carries the query string over to the form action" do
+      get :new, params: { login_hint: "user@example.com" }
+
+      expect(response.body).to include(%(action="#{SsoOpenid::Paths.auth_path}?login_hint=user%40example.com"))
+    end
+  end
+
   describe "#create" do
     let(:omniauth_data) { double('omniauth_data') }
     let(:admin) { double('Admin', uid: 'abc-123', id: 1) }
