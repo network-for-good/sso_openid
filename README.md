@@ -30,6 +30,23 @@ initializer:
 The gem then sends `max_age` to `/authorize` and checks the ID token's `auth_time` on the callback. Off
 by default. See https://auth0.com/docs/authenticate/login/max-age-reauthentication
 
+## How a login starts (omniauth 2, CSRF protection)
+omniauth 2 only runs its request phase on a POST that carries a CSRF token (the fix for
+CVE-2015-9284). Host apps can keep linking to the auth path with a plain GET: the engine answers a
+`GET /admin/auth/sso-openid` with a small standalone page that immediately POSTs itself to the same
+path with a Rails authenticity token, and omniauth then redirects to Auth0. Query params such as
+`login_hint`, `activated` and `pwdReset` survive the hop.
+
+Requirements on the host app:
+* `protect_from_forgery` enabled on `ApplicationController` (the Rails default) and a session store,
+  since the token is a regular Rails CSRF token checked by `omniauth-rails_csrf_protection`.
+* Optionally set `OmniAuth.config.allowed_hosts = ["app.example.com"]` (or `full_host`) in an
+  initializer; otherwise omniauth 2.3 logs a warning on every login start about building URLs from
+  the request host.
+
+A POST with a missing or invalid token ends up at `/auth/failure`, which redirects to the host app's
+`sso_openid_failure_path`.
+
 ## Methods this gem provides
 * `#authenticate_admin!` should run before each request to verify that a logged in admin exists. Otherwise, it will redirect to the auth path.
 * `#current_admin` returns the logged in admin.

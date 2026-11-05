@@ -31,63 +31,119 @@ describe SsoOpenid::Middleware, type: :request do
     end
   end
 
-  describe "a request to the auth path" do
-    let(:discovery_endpoint) { SsoOpenid::Urls.sso_openid.discovery_endpoint }
+  # NFG-3714: omniauth 2 only runs the request phase on POST (its fix for CVE-2015-9284). These
+  # drive the real OpenIDConnect strategy, with only Auth0's discovery document stubbed.
+  describe "the request phase" do
+    let(:auth_path) { SsoOpenid::Paths.auth_path }
+    let(:issuer) { "https://auth.example.com/" }
+    let(:client_id) { "test-client-id" }
+    let(:discovery_url) { "https://auth.example.com/.well-known/openid-configuration" }
     let(:scope) { SsoOpenid::Configuration.openid_options[:scope] }
-    let(:client_id) { SsoOpenid.configuration&.identifier || 'test-client-id' }
+
+    around do |example|
+      previous = SsoOpenid.configuration
+      SsoOpenid.configuration = SsoOpenid::Configuration.new
+      SsoOpenid.configure do |config|
+        config.identifier = client_id
+        config.secret = "test-secret"
+        config.host = "auth.example.com"
+        config.discovery_endpoint = "https://auth.example.com"
+      end
+      example.run
+    ensure
+      SsoOpenid.configuration = previous
+    end
 
     before do
-      # Ensure configuration is set up
-      SsoOpenid.configure do |config|
-        config.identifier ||= 'test-client-id'
-        config.secret ||= 'test-secret'
+      stub_request(:get, discovery_url).to_return(
+        status: 200,
+        headers: { "Content-Type" => "application/json" },
+        body: {
+          issuer: issuer,
+          authorization_endpoint: "https://auth.example.com/authorize",
+          token_endpoint: "https://auth.example.com/oauth/token",
+          userinfo_endpoint: "https://auth.example.com/userinfo",
+          jwks_uri: "https://auth.example.com/.well-known/jwks.json",
+          response_types_supported: ["code"],
+          subject_types_supported: ["public"],
+          id_token_signing_alg_values_supported: ["RS256"]
+        }.to_json
+      )
+    end
+
+    describe "GET (how every host app starts a login)" do
+      it "renders a self-submitting form that POSTs back to the auth path instead of redirecting" do
+        get auth_path
+
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(%(id="sso-openid-request-form"))
+        expect(response.body).to include(%(action="#{auth_path}"))
+        expect(response.body).to include(%(method="post"))
+        expect(a_request(:get, discovery_url)).not_to have_been_made
       end
 
-      # Calculate redirect_uri after request context is available
-      redirect_uri = sso_openid.callback_url(subdomain: 'www')
-      encoded_redirect_uri = ERB::Util.url_encode(redirect_uri)
+      it "keeps the query string on the form action" do
+        get "#{auth_path}?login_hint=user%40example.com"
 
-      # Mock redirect URL that omniauth would generate
-      mock_redirect_url = "#{discovery_endpoint}/protocol/openid-connect/auth?client_id=#{client_id}&redirect_uri=#{encoded_redirect_uri}&response_type=code&scope=#{scope.join('+')}&state=mock-state-123&nonce=mock-nonce-456"
-
-      # Mock the omniauth strategy to return a redirect
-      mock_strategy = instance_double(OmniAuth::Strategies::OpenIDConnect)
-      allow(OmniAuth::Strategies::OpenIDConnect).to receive(:new).and_return(mock_strategy)
-      allow(mock_strategy).to receive(:call).and_return([
-        302,
-        { 'Location' => mock_redirect_url },
-        []
-      ])
-    end
-
-    before { get sso_openid.auth_path }
-
-    # Get redirect location from response.location or headers
-    let(:redirect_location) do
-      loc = response.location
-      loc ||= response.headers['Location'] if response.headers
-      loc ||= response.headers[:Location] if response.headers
-      loc ||= response.redirect_url if response.respond_to?(:redirect_url)
-      # Check if response is a redirect and get location from status/headers
-      if response.status == 302 && response.headers
-        loc ||= response.headers['location'] || response.headers[:location]
+        expect(response.body).to include(%(action="#{auth_path}?login_hint=user%40example.com"))
       end
-      loc
     end
 
-    subject { redirect_location }
+    describe "POST" do
+      subject(:location) { response.location }
 
-    it "should redirect" do
-      expect(response.status).to eq(302)
-      expect(subject).to be_present
+      before { post auth_path }
+
+      it "redirects to the identity provider's authorization endpoint" do
+        expect(response).to have_http_status(:found)
+        expect(location).to start_with("https://auth.example.com/authorize?")
+      end
+
+      it { should include("client_id=#{client_id}") }
+      it { should include("response_type=code") }
+      it { should match(/scope=#{scope.join('(\\+|%20)')}/) }
+      it { should match(/state=\h+/) }
+      it { should match(/nonce=\h+/) }
+
+      it "sends the callback URL that the setup phase computed from the request host" do
+        expect(CGI.unescape(location)).to include("redirect_uri=http://www.example.com#{SsoOpenid::Paths.callback_path}")
+      end
+
+      context "with login_hint in the query string" do
+        before { post "#{auth_path}?login_hint=user%40example.com" }
+
+        it { should include("login_hint=user%40example.com") }
+      end
     end
 
-    it { should match(/#{Regexp.escape(discovery_endpoint)}/) }
-    it { should match(/redirect_uri=/) }
-    it { should match(/scope=#{scope.join('\+')}/) }
-    it { should match(/client_id=#{client_id}/) }
-    it { should match(/state=/) }
-    it { should match(/nonce=/) }
+    describe "POST with forgery protection on, as in production" do
+      around do |example|
+        ActionController::Base.allow_forgery_protection = true
+        example.run
+      ensure
+        ActionController::Base.allow_forgery_protection = false
+      end
+
+      it "rejects a POST that carries no authenticity token (the CVE-2015-9284 case)" do
+        post auth_path
+
+        expect(response).to have_http_status(:found)
+        expect(response.location).to include("/auth/failure?message=")
+        expect(response.location).not_to include("auth.example.com/authorize")
+        expect(a_request(:get, discovery_url)).not_to have_been_made
+      end
+
+      it "accepts the token minted by the GET page" do
+        get auth_path
+        token = response.body[/name="authenticity_token" value="([^"]+)"/, 1]
+        expect(token).to be_present
+
+        post auth_path, params: { authenticity_token: token }
+
+        expect(response).to have_http_status(:found)
+        expect(response.location).to start_with("https://auth.example.com/authorize?")
+      end
+    end
   end
 
   describe "processing the callback" do
