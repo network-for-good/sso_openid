@@ -20,11 +20,52 @@ This gem provides a wrapper around omniauth and omniauth-openid-connect for hand
 4. Add a method called `sso_openid_failure_path`. This is the path to where the user will be redirected upon any failure.
 5. Add `before_filter authenticate_admin!`. Be sure to exclude this filter where necessary, such as in controller that handle the display of error messages to non-logged in users.
 
+## Forcing periodic re-authentication (`max_auth_age`)
+Auth0 keeps its own persistent session cookie and silently re-authenticates users whose app session has
+expired. To require a credential prompt once a login is older than N seconds, set in the host app's
+initializer:
+
+    SsoOpenid.configure { |config| config.max_auth_age = 12.hours }
+
+The gem then sends `max_age` to `/authorize` and checks the ID token's `auth_time` on the callback. Off
+by default. See https://auth0.com/docs/authenticate/login/max-age-reauthentication
+
+## How a login starts (omniauth 2, CSRF protection)
+omniauth 2 only runs its request phase on a POST that carries a CSRF token (the fix for
+CVE-2015-9284). Host apps can keep linking to the auth path with a plain GET: the engine answers a
+`GET /admin/auth/sso-openid` with a small standalone page that immediately POSTs itself to the same
+path with a Rails authenticity token, and omniauth then redirects to Auth0. Query params such as
+`login_hint`, `activated` and `pwdReset` survive the hop.
+
+Requirements on the host app:
+* `protect_from_forgery` enabled on `ApplicationController` (the Rails default) and a session store,
+  since the token is a regular Rails CSRF token checked by `omniauth-rails_csrf_protection`.
+* Optionally set `OmniAuth.config.allowed_hosts = ["app.example.com"]` (or `full_host`) in an
+  initializer; otherwise omniauth 2.3 logs a warning on every login start about building URLs from
+  the request host.
+
+A POST with a missing or invalid token ends up at `/auth/failure`, which redirects to the host app's
+`sso_openid_failure_path`.
+
 ## Methods this gem provides
 * `#authenticate_admin!` should run before each request to verify that a logged in admin exists. Otherwise, it will redirect to the auth path.
 * `#current_admin` returns the logged in admin.
 * `#sign_in(admin)` will sign in an admin by creating the admin_uid cookie.
 * `#sign_out` will remove the cookie and redirect to the root path.
 * `#stored_location` will return any path that the admin attempts to access before signing in.
+
+## CI and Releasing
+
+Every pull request against `main` runs the gem's RSpec suite via the [test workflow](.github/workflows/test.yml); a failing test blocks merge. (CircleCI also still runs on push/PR during the transition to GitHub Actions — it will be retired once the GitHub Actions workflow has a track record of passing builds.)
+
+This gem doesn't follow strict semver — version numbers have historically tracked the supported Rails series, sometimes with ad hoc suffixes for in-progress work (e.g. `7.2.4.auth0.uat.1`, `7.3.2.beta1`). Whether a change warrants a release, and what the next version number should be, stays a judgment call made by the PR author, not something inferred from commit messages.
+
+Releasing is automatic and merge-triggered — there's no local `gem push` step for a normal release:
+
+1. As part of your PR, decide whether the change warrants a release, and if so, bump `lib/sso_openid/version.rb`.
+2. On merge to `main`, the [publish-gem workflow](.github/workflows/publish-gem.yml) checks whether the current `VERSION` already has a matching `gem-v<version>` tag. If it does (i.e. the merge didn't change the version), it does nothing — no new package is published.
+3. Otherwise it builds the gem, pushes it to the [network-for-good GitHub Packages registry](https://rubygems.pkg.github.com/network-for-good) using its own `GITHUB_TOKEN`, and pushes the `gem-v<version>` tag itself.
+
+`bin/publish_gem` (what the workflow runs under the hood) also works for a manual/local release as a break-glass fallback — see the script for the required `~/.gem/credentials` entry — but it shouldn't be needed for normal releases.
 
 
