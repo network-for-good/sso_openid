@@ -13,3 +13,12 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+# Pin transitive dependencies to patched versions to resolve SCA findings
+# (NFG-4216). These are indirect dependencies of the gemspec dependencies
+# that ship versions vulnerable to the CVEs listed below.
+gem 'rack', '= 2.2.24'            # CVE-2025-46727, CVE-2025-59830, CVE-2026-34830
+gem 'thor', '= 1.4.0'             # CVE-2025-54314
+gem 'addressable', '= 2.9.0'      # CVE-2026-35611
+gem 'faraday', '= 2.14.3'         # CVE-2026-54297
+gem 'websocket-driver', '= 0.8.2' # CVE-2026-61666
+
