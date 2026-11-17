@@ -58,6 +58,8 @@ A POST with a missing or invalid token ends up at `/auth/failure`, which redirec
 
 Every pull request against `main` runs the gem's RSpec suite via the [test workflow](.github/workflows/test.yml); a failing test blocks merge. (CircleCI also still runs on push/PR during the transition to GitHub Actions — it will be retired once the GitHub Actions workflow has a track record of passing builds.)
 
+**Runner and Ruby version.** The test and publish workflows run on a fixed runner image (`runs-on: ubuntu-24.04`) and use an exact Ruby version (`ruby-version: '3.4.2'`), instead of `ubuntu-latest`. `ubuntu-latest` now resolves to Ubuntu 26.04, where `ruby/setup-ruby` only provides the latest patch of each Ruby series, so an exact pin such as `3.4.2` fails there (NFG-5011). When changing either, update the workflows together, and before moving to a newer runner image confirm the pinned Ruby is available on it.
+
 This gem doesn't follow strict semver — version numbers have historically tracked the supported Rails series, sometimes with ad hoc suffixes for in-progress work (e.g. `7.2.4.auth0.uat.1`, `7.3.2.beta1`). Whether a change warrants a release, and what the next version number should be, stays a judgment call made by the PR author, not something inferred from commit messages.
 
 Releasing is automatic and merge-triggered — there's no local `gem push` step for a normal release:
